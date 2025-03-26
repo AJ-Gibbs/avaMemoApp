@@ -1,72 +1,209 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/memo_filter_page"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:background="#121810"
+    >
 
-    <!-- Search Bar -->
+    <!-- Top Bar Layout -->
+    <LinearLayout
+        android:id="@+id/lineartopper"
+        android:layout_width="0dp"
+        android:layout_height="66dp"
+        android:background="#121810"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:id="@+id/textList"
+            android:layout_width="0dp"
+            android:layout_height="54dp"
+            android:layout_weight="1"
+            android:text="Settings ⛅"
+            android:background="#5f7821"
+            android:textAlignment="center"
+            android:textColor="#F2E7E7"
+            android:textSize="43sp"
+            android:textStyle="bold|italic" />
+    </LinearLayout>
+
+
     <EditText
         android:id="@+id/searchBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="340dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/rounded_bg"
         android:hint="Search by title or description"
-        android:inputType="text" />
 
-    <!-- Sorting Options -->
-    <TextView
-        android:id="@+id/sortLabel"
-        android:layout_width="165dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Sort By:" />
+        android:inputType="text"
+        android:padding="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.486"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/lineartopper" />
 
-    <RadioGroup
-        android:id="@+id/sortOptions"
+    <!-- Bottom Bar Layout -->
+
+    <!-- Image on the Left -->
+
+    <!-- Container for Sort and Filter -->
+    <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/searchBar">
 
-        <RadioButton
-            android:id="@+id/sortByPriority"
-            android:layout_width="114dp"
-            android:layout_height="wrap_content"
-            android:text="Priority" />
 
-        <RadioButton
-            android:id="@+id/sortBySubject"
-            android:layout_width="132dp"
-            android:layout_height="wrap_content"
-            android:text="Subject" />
-
-        <RadioButton
-            android:id="@+id/sortByDate"
-            android:layout_width="105dp"
-            android:layout_height="wrap_content"
-            android:text="Date" />
-    </RadioGroup>
-
-    <!-- Priority Filter -->
-    <TextView
-        android:id="@+id/filterLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Filter By Priority:"
-        android:layout_marginTop="16dp" />
-
-    <!-- Memos List -->
-    <Spinner
-        android:id="@+id/priorityFilter"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:entries="@array/priority_options" />
+    </LinearLayout>
 
     <ListView
         android:id="@+id/memoListView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_marginTop="16dp" />
+        android:layout_width="361dp"
+        android:layout_height="193dp"
+        android:layout_marginBottom="44dp"
+        android:background="@drawable/rounded_darker_purple_bg"
+        app:layout_constraintBottom_toTopOf="@+id/linearbot"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
 
-</LinearLayout>
+    <LinearLayout
+        android:id="@+id/linearbot"
+        android:layout_width="0dp"
+        android:layout_height="66dp"
+        android:background="#5f7821"
+        android:orientation="horizontal"
+        android:gravity="center"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <Button
+            android:id="@+id/buttonBack"
+            android:layout_width="197dp"
+            android:layout_height="37dp"
+            android:backgroundTint="#bbc46b"
+            android:text="| Home |"
+            android:textColor="#514D56"
+            android:textSize="11sp"
+            app:iconTint="#000000" />
+    </LinearLayout>
+
+
+    <ImageView
+        android:id="@+id/imageIcon"
+        android:layout_width="115dp"
+        android:layout_height="176dp"
+        android:contentDescription="Icon"
+        app:layout_constraintBottom_toBottomOf="@+id/linearbot"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.068"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/lineartopper"
+        app:layout_constraintVertical_bias="0.24"
+        app:srcCompat="@drawable/kyoshi_photoroom" />
+
+    <TextView
+        android:id="@+id/randomPlacer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="K Y O S H I"
+        android:textColor="#F2E7E7"
+        app:layout_constraintEnd_toEndOf="@+id/imageIcon"
+        app:layout_constraintHorizontal_bias="0.51"
+        app:layout_constraintStart_toStartOf="@+id/imageIcon"
+        tools:layout_editor_absoluteY="281dp" />
+
+    <LinearLayout
+        android:layout_width="349dp"
+        android:layout_height="59dp"
+        android:background="@drawable/rounded_light_purple_bg"
+        android:orientation="vertical"
+        android:padding="8dp"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/lineartopper">
+
+        <TextView
+            android:id="@+id/filterLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Filter By Priority:"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/priorityFilter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/priority_options" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="223dp"
+        android:layout_height="90dp"
+        android:background="@drawable/rounded_bg"
+        android:orientation="vertical"
+        android:padding="8dp"
+
+        app:layout_constraintBottom_toBottomOf="@+id/linearbot"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.896"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/lineartopper"
+        app:layout_constraintVertical_bias="0.297">
+
+        <TextView
+            android:id="@+id/sortLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sort By:"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <RadioGroup
+            android:id="@+id/sortOptions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/sortByPriority"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Priority"
+
+                android:textSize="11sp" />
+
+            <RadioButton
+                android:id="@+id/sortBySubject"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Subject"
+
+                android:textSize="11sp" />
+
+            <RadioButton
+                android:id="@+id/sortByDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Date"
+                android:textSize="11sp" />
+        </RadioGroup>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
