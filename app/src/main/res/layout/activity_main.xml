@@ -12,7 +12,7 @@
         android:id="@+id/lineartop"
         android:layout_width="417dp"
         android:layout_height="66dp"
-        android:background="#21213c"
+        android:background="#2f3c16"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -27,7 +27,6 @@
             android:layout_weight="1"
             android:text=" AVA Notes 🌆"
             android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textColor="#F2E7E7"
             android:textSize="43sp"
             android:textStyle="bold|italic" />
@@ -38,7 +37,7 @@
         android:id="@+id/linearbottom"
         android:layout_width="417dp"
         android:layout_height="66dp"
-        android:background="#21213c"
+        android:background="#2f3c16"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -49,6 +48,9 @@
     </LinearLayout>
 
     <!-- linearLayoutLong: Subject, TextView2, Title EditText, MultiLine EditText -->
+
+    <!-- New Priority and Date Section -->
+
     <LinearLayout
         android:id="@+id/linearLayoutLong"
         android:layout_width="230dp"
@@ -58,7 +60,7 @@
         android:padding="16dp"
         app:layout_constraintBottom_toTopOf="@+id/linearbottom"
         app:layout_constraintTop_toBottomOf="@+id/lineartop"
-        app:layout_constraintVertical_bias="0.672"
+        app:layout_constraintVertical_bias="0.663"
         tools:layout_editor_absoluteX="16dp">
 
         <!-- Subject TextView -->
@@ -102,11 +104,9 @@
             android:inputType="textMultiLine" />
     </LinearLayout>
 
-    <!-- New Priority and Date Section -->
-
     <LinearLayout
         android:id="@+id/priorityAndDateSection"
-        android:layout_width="142dp"
+        android:layout_width="146dp"
         android:layout_height="243dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="228dp"
@@ -180,10 +180,10 @@
         android:verticalScrollbarPosition="defaultPosition"
         app:layout_constraintBottom_toBottomOf="@+id/linearbottom"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.132"
+        app:layout_constraintHorizontal_bias="0.051"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/lineartop"
-        app:layout_constraintVertical_bias="0.181" />
+        app:layout_constraintVertical_bias="0.178" />
 
     <ImageView
         android:id="@+id/imageView3"
