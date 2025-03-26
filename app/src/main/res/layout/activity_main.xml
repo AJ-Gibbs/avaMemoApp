@@ -5,46 +5,144 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#bbc46b"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="68dp"
-        android:layout_height="25dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="100dp"
-        android:text="Subject"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="318dp"
-        android:layout_height="23dp"
-        android:text="Text"
-        tools:layout_editor_absoluteX="35dp"
-        tools:layout_editor_absoluteY="163dp" />
-
-    <EditText
-        android:id="@+id/editTextTextMultiLine"
-        android:layout_width="325dp"
-        android:layout_height="64dp"
-        android:layout_marginTop="208dp"
-        android:ems="10"
-        android:gravity="start|top"
-        android:inputType="textMultiLine"
+    <LinearLayout
+        android:id="@+id/lineartop"
+        android:layout_width="417dp"
+        android:layout_height="66dp"
+        android:background="#21213c"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.406"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
-    <EditText
-        android:id="@+id/editTextText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="text"
-        android:text="Name"
-        tools:layout_editor_absoluteX="125dp"
-        tools:layout_editor_absoluteY="91dp" />
+        <TextView
+            android:id="@+id/textAVA"
+            android:layout_width="353dp"
+            android:layout_height="54dp"
+            android:layout_weight="1"
+            android:text=" AVA Notes 🌆"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="#F2E7E7"
+            android:textSize="43sp"
+            android:textStyle="bold|italic" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearbottom"
+        android:layout_width="417dp"
+        android:layout_height="66dp"
+        android:background="#21213c"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
+    </LinearLayout>
+
+    <!-- linearLayoutLong will contain Subject, TextView2, Title EditText, and MultiLine EditText -->
+
+    <LinearLayout
+        android:id="@+id/linearLayoutLong"
+        android:layout_width="257dp"
+        android:layout_height="356dp"
+        android:background="@drawable/rounded_bg"
+        android:orientation="vertical"
+        android:padding="16dp"
+
+        app:layout_constraintBottom_toTopOf="@+id/linearbottom"
+        app:layout_constraintTop_toBottomOf="@+id/lineartop"
+        app:layout_constraintVertical_bias="0.672"
+        tools:layout_editor_absoluteX="16dp">
+
+        <!-- Subject TextView -->
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="222dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="Subject"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp" />
+
+        <!-- TextView2 (hint or additional label) -->
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="223dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:hint="Text"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp" />
+
+        <!-- Title EditText -->
+        <EditText
+            android:id="@+id/editTextText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:ems="10"
+            android:hint="Title..."
+            android:inputType="text" />
+
+        <!-- MultiLine EditText -->
+        <EditText
+            android:id="@+id/editTextTextMultiLine"
+            android:layout_width="match_parent"
+            android:layout_height="173dp"
+            android:layout_marginBottom="16dp"
+            android:ems="10"
+            android:gravity="start|top"
+            android:inputType="textMultiLine" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="237dp"
+        android:layout_height="58dp"
+        android:background="@drawable/rounded_bg"
+        android:text="Hiya, Hey! "
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="#F2E7E7"
+        android:textSize="31sp"
+        android:textStyle="bold|italic"
+        android:verticalScrollbarPosition="defaultPosition"
+        app:layout_constraintBottom_toBottomOf="@+id/linearbottom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.132"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/lineartop"
+        app:layout_constraintVertical_bias="0.181" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="134dp"
+        android:layout_height="196dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.974"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.087"
+        app:srcCompat="@drawable/kyoshi_photoroom" />
+
+    <TextView
+        android:id="@+id/textValidation"
+        android:layout_width="216dp"
+        android:layout_height="21dp"
+        android:layout_marginTop="20dp"
+        android:hint="Validation Message Incoming. . ."
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.225"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutLong" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

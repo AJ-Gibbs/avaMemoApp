@@ -17,10 +17,10 @@
     <!-- Sorting Options -->
     <TextView
         android:id="@+id/sortLabel"
-        android:layout_width="wrap_content"
+        android:layout_width="165dp"
         android:layout_height="wrap_content"
-        android:text="Sort By:"
-        android:layout_marginTop="16dp" />
+        android:layout_marginTop="16dp"
+        android:text="Sort By:" />
 
     <RadioGroup
         android:id="@+id/sortOptions"
@@ -30,19 +30,19 @@
 
         <RadioButton
             android:id="@+id/sortByPriority"
-            android:layout_width="wrap_content"
+            android:layout_width="114dp"
             android:layout_height="wrap_content"
             android:text="Priority" />
 
         <RadioButton
             android:id="@+id/sortBySubject"
-            android:layout_width="wrap_content"
+            android:layout_width="132dp"
             android:layout_height="wrap_content"
             android:text="Subject" />
 
         <RadioButton
             android:id="@+id/sortByDate"
-            android:layout_width="wrap_content"
+            android:layout_width="105dp"
             android:layout_height="wrap_content"
             android:text="Date" />
     </RadioGroup>
