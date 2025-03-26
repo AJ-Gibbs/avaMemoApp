@@ -27,7 +27,7 @@
                 android:layout_width="353dp"
                 android:layout_height="54dp"
                 android:layout_weight="1"
-                android:text=" AVA Notes 🌆"
+                android:text=" Your Listers 🌄"
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textColor="#F2E7E7"
@@ -35,8 +35,27 @@
                 android:textStyle="bold|italic" />
         </LinearLayout>
 
-        <!-- Existing Bottom LinearLayout -->
-        <LinearLayout
+    <!-- Existing Bottom LinearLayout -->
+
+    <Button
+        android:id="@+id/buttonBack"
+        android:layout_width="115dp"
+        android:layout_height="37dp"
+        android:layout_weight="1"
+        android:backgroundTint="#c69e5d"
+
+        android:text="| Home |"
+        android:textColor="#514D56"
+        android:textSize="11sp"
+        app:iconTint="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.858"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.889" />
+
+    <LinearLayout
             android:id="@+id/linearbottom"
             android:layout_width="417dp"
             android:layout_height="66dp"
@@ -50,9 +69,39 @@
             app:layout_constraintVertical_bias="1.0">
         </LinearLayout>
 
-        <!-- linearLayoutLong: Subject, TextView2, Title EditText, MultiLine EditText -->
+    <!-- Sort By Section -->
 
     <!-- New Priority and Date Section -->
+
+    <LinearLayout
+        android:layout_width="241dp"
+        android:layout_height="75dp"
+        android:layout_marginTop="24dp"
+        android:background="#5f7821"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:radius="13dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.084"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewers">
+
+        <!-- Sort By Text -->
+        <TextView
+            android:layout_width="176dp"
+            android:layout_height="wrap_content"
+            android:text="Sort By"
+            android:textColor="#21213c"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <!-- Spinner for Sorting -->
+        <Spinner
+            android:id="@+id/sortBySpinner"
+            android:layout_width="205dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp" />
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayoutLong"
@@ -62,14 +111,12 @@
         android:orientation="vertical"
         android:padding="16dp"
         app:layout_constraintBottom_toTopOf="@+id/linearbottom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.291"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lineartop"
-        app:layout_constraintVertical_bias="0.754"
-        tools:layout_editor_absoluteX="24dp">
+        app:layout_constraintVertical_bias="0.787">
 
-
-        <!-- Title/Header -->
-
-        <!-- Spinner for Sorting -->
         <TextView
             android:id="@+id/memoTitle"
             android:layout_width="311dp"
@@ -84,35 +131,24 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Spinner
-            android:id="@+id/sortSpinner"
-            android:layout_width="315dp"
-            android:layout_height="175dp"
-            android:layout_marginTop="8dp"
-            android:paddingStart="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/title" />
-
         <!-- Memo List (RecyclerView for Memo Items) -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/memoRecyclerView"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintTop_toBottomOf="@id/sortSpinner"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="310dp"
+            android:layout_height="176dp"
+            android:layout_marginTop="16dp"
             app:layout_constraintBottom_toTopOf="@id/buttonAddMemo"
-            android:layout_marginTop="16dp"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="parent">
 
-        <!-- Add Memo Button -->
-
+        </androidx.recyclerview.widget.RecyclerView>
     </LinearLayout>
 
     <TextView
         android:id="@+id/textViewers"
         android:layout_width="242dp"
-        android:layout_height="48dp"
+        android:layout_height="52dp"
         android:background="@drawable/rounded_bg"
         android:text="V I E W E R S"
         android:textAlignment="center"
@@ -123,35 +159,44 @@
         android:verticalScrollbarPosition="defaultPosition"
         app:layout_constraintBottom_toBottomOf="@+id/linearbottom"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.142"
+        app:layout_constraintHorizontal_bias="0.082"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/lineartop"
-        app:layout_constraintVertical_bias="0.187" />
+        app:layout_constraintVertical_bias="0.157" />
 
     <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="134dp"
-            android:layout_height="196dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.974"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.087"
-            app:srcCompat="@drawable/kyoshi_photoroom" />
+        android:id="@+id/imageView3"
+        android:layout_width="139dp"
+        android:layout_height="233dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.977"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.112"
+        app:srcCompat="@drawable/kyoshi_photoroom" />
 
     <Button
         android:id="@+id/buttonAddMemo"
-        android:layout_width="173dp"
-        android:layout_height="48dp"
+        android:layout_width="203dp"
+        android:layout_height="45dp"
         android:backgroundTint="#5f7821"
         android:text="Add Memo . . . "
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.488"
+        app:layout_constraintHorizontal_bias="0.182"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.891" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutLong"
+        app:layout_constraintVertical_bias="0.083" />
+
+    <TextView
+        android:id="@+id/randomPlaceholder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="K Y O S H I"
+        android:textColor="#F2E7E7"
+        tools:layout_editor_absoluteX="303dp"
+        tools:layout_editor_absoluteY="250dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
