@@ -1,17 +1,34 @@
 package com.example.avamemoapp;
 
+/*
+This is the memoListActivity class. This class is responsible for the memo list activity:
+- This class is responsible for the memo list activity and the functionality.
+1) Create an adapter to display the list of memos --> it binds the data to the RecyclerView
+2) Create a ViewHolder class to hold the views for the RecyclerView
+3) Create a method to initialize the add memo button
+4) Create a method to initialize the home button
+5) Create a method to initialize the next button
+6) Handling the Sorting --> add a listener to the spinner and sorting list
+
+ */
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Spinner;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class memoListActivity extends AppCompatActivity {
+
+    private RecyclerView recyclerView;
+    private Spinner sortBySpinner;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
