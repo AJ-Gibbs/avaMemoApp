@@ -70,7 +70,7 @@
 
         <!-- Title EditText -->
         <EditText
-            android:id="@+id/editTextText"
+            android:id="@+id/titleEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
@@ -80,7 +80,7 @@
 
         <!-- MultiLine EditText -->
         <EditText
-            android:id="@+id/editTextTextMultiLine"
+            android:id="@+id/mTextEditText"
             android:layout_width="match_parent"
             android:layout_height="173dp"
             android:layout_marginBottom="16dp"
@@ -137,7 +137,7 @@
             android:text="Select Date" />
 
         <TextView
-            android:id="@+id/dateLabel"
+            android:id="@+id/dateTextView"
             android:layout_width="85dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"

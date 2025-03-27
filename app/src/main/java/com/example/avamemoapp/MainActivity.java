@@ -1,10 +1,16 @@
 package com.example.avamemoapp;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +21,7 @@ import androidx.core.view.WindowInsetsCompat;
 public class MainActivity extends AppCompatActivity {
 
     private MemoDBHelper dbHelper;
+    private memo currentMemo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Call the method here to trigger/open the memoListActivity
         initNextButton();
-        initsaveButton();
+        initSaveButton();
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -50,17 +57,90 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-    private void initsaveButton(){
-        Button button = findViewById(R.id.buttonSave);
-        button.setOnClickListener(new View.OnClickListener() {
+
+
+
+    //this method takes the info in the edit texts and saves it to the memo object
+    private void initTextChangedEvents(){
+        final EditText etMemoName = findViewById(R.id.titleEditText);
+        etMemoName.addTextChangedListener(new TextWatcher() {
+            public void afterTextChanged(Editable s) {
+                //save the memo name
+                currentMemo.setName(etMemoName.getText().toString());
+            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+
+        });
+
+        final EditText etMemoText = findViewById(R.id.mTextEditText);
+        etMemoText.addTextChangedListener(new TextWatcher() {
+            public void afterTextChanged(Editable s) {
+                //save the memo name
+                currentMemo.setText(etMemoText.getText().toString());
+            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+
+        });
+
+        final Spinner etMemoPriority = findViewById(R.id.prioritySpinner);
+        etMemoPriority.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedPriority = parent.getItemAtPosition(position).toString();
+                currentMemo.setPriority(selectedPriority);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {}
+        });
+    }
+    private void initSaveButton(){
+        Button saveButton = findViewById(R.id.buttonSave);
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View view) {
-                //save to DB and open the next activity (memoListActivity)
-                Intent intent = new Intent(MainActivity.this, memoListActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
+                boolean wasSuccessful = false;
+                MemoDataSource ds = new MemoDataSource(MainActivity.this);
+                try {
+                    ds.open();
+
+                    if (currentMemo.getMemoID() == -1) {
+                        wasSuccessful = ds.insert(currentMemo);
+
+                    }
+
+                    else {
+                        wasSuccessful = ds.update(currentMemo);
+                    }
+                    ds.close();
+                } catch (Exception e) {
+                    wasSuccessful = false;
+                }
+                if (wasSuccessful) {
+                    Intent intent = new Intent(MainActivity.this, memoListActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                }
+
             }
         });
+
     }
 }
