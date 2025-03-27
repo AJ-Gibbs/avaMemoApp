@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //This takes us to the memo list activity
+
     private void initNextButton() {
         Button button = findViewById(R.id.buttonNext);
         button.setOnClickListener(new View.OnClickListener() {
