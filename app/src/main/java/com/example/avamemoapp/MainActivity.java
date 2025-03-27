@@ -1,24 +1,29 @@
 package com.example.avamemoapp;
 
-import android.app.DatePickerDialog;
+//import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.fragment.app.FragmentManager;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.Calendar;
+
+public class MainActivity extends AppCompatActivity implements DatePickerDialog.SaveDateListener {
 
     private MemoDBHelper dbHelper;
     private memo currentMemo;
@@ -35,6 +40,9 @@ public class MainActivity extends AppCompatActivity {
         //Call the method here to trigger/open the memoListActivity
         initNextButton();
         initSaveButton();
+        initTextChangedEvents();
+        initDateButton();
+        currentMemo = new memo();
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -110,6 +118,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {}
         });
+
     }
     private void initSaveButton(){
         Button saveButton = findViewById(R.id.buttonSave);
@@ -143,4 +152,25 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
+    //date picker dialog
+    @Override
+    public void didFinishDatePickerDialog(Calendar selectedTime) {
+        TextView dateTextView = findViewById(R.id.dateTextView);
+        dateTextView.setText(DateFormat.format("MM/dd/yyyy", selectedTime));
+        currentMemo.setDate(selectedTime);
+    }
+
+    private void initDateButton(){
+        Button dateButton = findViewById(R.id.dateButton);
+        dateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentManager fm = getSupportFragmentManager();
+                DatePickerDialog datePickerDialog = new DatePickerDialog();
+                datePickerDialog.show(fm, "DatePick");
+            }
+        });
+    }
+
 }
