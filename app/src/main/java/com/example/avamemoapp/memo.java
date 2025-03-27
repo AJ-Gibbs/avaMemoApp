@@ -7,7 +7,7 @@ public class memo {
     private int memoID;
     private String name;
 
-    private String text;
+    private String mText;
 
     private String priority;
 
@@ -34,12 +34,12 @@ public class memo {
         this.name = name;
     }
 
-    public String getText (){
-        return text;
+    public String getMText (){
+        return mText;
     }
 
     public void setText (String text){
-        this.text = text;
+        this.mText = text;
     }
 
     public String getPriority (){
