@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="#bbc46b" />  <!-- Background color -->
+    <corners android:radius="13dp" />  <!-- Corner radius  #333e5b this is for the date, proicority and save button-->
+</shape>
+
