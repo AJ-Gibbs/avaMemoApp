@@ -65,24 +65,8 @@
         app:layout_constraintVertical_bias="0.659">
 
         <!-- Subject TextView -->
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="222dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:text="Subject"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp" />
 
         <!-- TextView2 -->
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="223dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:hint="Text"
-            android:textColor="#FFFFFF"
-            android:textSize="16sp" />
 
         <!-- Title EditText -->
         <EditText
@@ -132,6 +116,7 @@
             android:textSize="18sp" />
 
         <!-- Priority Spinner -->
+
         <Spinner
             android:id="@+id/prioritySpinner"
             android:layout_width="108dp"
@@ -144,26 +129,24 @@
 
         <!-- Date EditText -->
 
+        <Button
+            android:id="@+id/button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#5f7821"
+            android:text="Select Date" />
+
         <TextView
             android:id="@+id/dateLabel"
             android:layout_width="85dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="8dp"
-            android:text="Date"
+            android:text="1/1/2025"
             android:textColor="#F2E7E7"
             android:textSize="18sp" />
 
-        <EditText
-            android:id="@+id/dateEditText"
-            android:layout_width="109dp"
-            android:layout_height="59dp"
-            android:background="@drawable/rounded_bg"
-            android:hint="MM/DD/YYYY"
-            android:inputType="date"
-            android:textSize="15sp">
-
-        </EditText> <!-- Auto-fill with current date -->
+        <!-- Auto-fill with current date -->
     </LinearLayout>
 
     <TextView
