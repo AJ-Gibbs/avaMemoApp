@@ -161,7 +161,6 @@
             android:background="@drawable/rounded_bg"
             android:hint="MM/DD/YYYY"
             android:inputType="date"
-            android:text="@{currentDate}"
             android:textSize="15sp">
 
         </EditText> <!-- Auto-fill with current date -->
