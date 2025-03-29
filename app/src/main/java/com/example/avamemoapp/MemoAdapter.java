@@ -76,7 +76,7 @@ public class MemoAdapter extends RecyclerView.Adapter<MemoAdapter.MemoViewHolder
                     holder.priorityIndicator.setBackgroundColor(Color.rgb(255, 165, 0)); /// Orange instead of Yellow
                     break;
                 case "Low":
-                    holder.priorityIndicator.setBackgroundColor(Color.BLUE);
+                    holder.priorityIndicator.setBackgroundColor(Color.GREEN);
                     break;
                 default:
                     holder.priorityIndicator.setBackgroundColor(Color.LTGRAY); /// Default color for unknown priorities (basically the option that says ALLLLLL)
