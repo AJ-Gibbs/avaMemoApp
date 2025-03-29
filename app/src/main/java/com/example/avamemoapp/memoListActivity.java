@@ -31,42 +31,43 @@ import java.util.List;
 /// handling UI elements such as buttons, and controlling navigation to other activities.
 /// This is the activity that shows the RecyclerView with all the memos.
 public class memoListActivity extends AppCompatActivity {
-    private RecyclerView recyclerView;
-    private MemoAdapter memoAdapter;
-    private List<memo> memoList;
+    private RecyclerView recyclerView; // RecyclerView to display memos
+    private MemoAdapter memoAdapter;   // Adapter to bind data to RecyclerView
+    private List<memo> memoList;       // List to store memos from database
 
     /// 1
     /// The onCreate method is called when the activity is first created.
-    /// ***It sets up the layout, adjusts for system window insets and initializes various buttons (Add Memo, Home, and Next buttons).***
+    /// - Sets up the layout.
+    /// - Loads memos from the database.
+    /// - Configures RecyclerView and buttons.
+    ///
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_memo_list);
 
-        // Initialize MemoDataSource
+        ///  Initialize and open database connection
         MemoDataSource dataSource = new MemoDataSource(this);
         dataSource.open();
 
-        // Load memos from the database
-        memoList = dataSource.getAllMemos();  // Assume this method retrieves all memos from the database
+        /// Load memos from the database...GIVE ME ALL THE MEMOS!!!!
+        memoList = dataSource.getAllMemos();
         dataSource.close();
 
+        /// Initialize RecyclerView.,..gotta love the RecyclerView..let's make sure it's all set up NICELY 🌞 🐳
+        recyclerView = findViewById(R.id.memoRecyclerView);  /// Get RecyclerView from XML
+        recyclerView.setLayoutManager(new LinearLayoutManager(this)); /// Arrange items in a vertical list
+        memoAdapter = new MemoAdapter(memoList); /// Attach adapter to handle memo data
+        recyclerView.setAdapter(memoAdapter); /// Set adapter for RecyclerView
 
+        /// Call the method here to go back to the main activity
+        /// Invesiti...I meant Initialize the buttons 😭
+        initAddMemo();   // Button to add a new memo
+        initHomeButton(); // Button to return to the home screen
+        initNext2Button(); // Button to navigate to settings page
 
-        // Initialize RecyclerView
-        recyclerView = findViewById(R.id.memoRecyclerView);  // Assume you've defined recyclerView in your layout XML
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        memoAdapter = new MemoAdapter(memoList);
-        recyclerView.setAdapter(memoAdapter);
-
-        //Call the method here to go back to the main activity
-        initAddMemo();
-        initHomeButton();
-        initNext2Button();
-
-        //This is where the memo list and recycler view is created
-
+        /// SHE DOESN'T EVEN GO HERE!!!! 🫥😶🤔😑
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -75,11 +76,10 @@ public class memoListActivity extends AppCompatActivity {
         });
     }
 
-
-
     /// 2
-    /// ***initAddMemo(): This method sets up a button (buttonAddMemo) that, when clicked, navigates the user back to the main activity (MainActivity).***
-    //This takes us back to the main activity
+    /// initAddMemo() - Handles "Add Memo" button click.
+    /// When clicked, it navigates back to the MainActivity.
+    /// //This takes us back to the main activity
     private void initAddMemo() {
         Button button = findViewById(R.id.buttonAddMemo);
         button.setOnClickListener(new View.OnClickListener() {
@@ -87,15 +87,15 @@ public class memoListActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(memoListActivity.this, MainActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); // Clears activity stack
+                startActivity(intent); // Start MainActivity
             }
         });
     }
 
     /// 3
     ///  Similar to initAddMemo(), but this button takes the user back to the main activity.
-    //This takes us back to the main activity (basically does the same thing as the initAddMemo method just wanted to try something different...kind of...ehhh)
+    /// This takes us back to the main activity (basically does the same thing as the initAddMemo method just wanted to try something different...kind of...ehhh)
     private void initHomeButton() {
         Button button = findViewById(R.id.buttonHome);
         button.setOnClickListener(new View.OnClickListener() {
@@ -111,7 +111,7 @@ public class memoListActivity extends AppCompatActivity {
 
     /// 4
     /// This button navigates the user to a MemoSettingsActivity.
-    //This takes us to the settings page
+    /// This takes us to the MEMO settings page... Is aiden a thing? I said what I said!
     private void initNext2Button() {
         Button button = findViewById(R.id.buttonNext2);
         button.setOnClickListener(new View.OnClickListener() {
@@ -125,11 +125,12 @@ public class memoListActivity extends AppCompatActivity {
         });
     }
 
-    //This is for the Swiper-to-delete functionality
+    /// 5
+    ///This is for the Swiper-to-delete functionality
+    /// This section will be used to implement swipe-to-delete functionality for memos.
+    /// More like a button to delete it just like we did in our contacts list
 
-
-
-
-
-
+    /// 6
+    ///This is for the Tap-to-edit functionality
+    /// More like a button to edit it just like we did in our contacts list
 }
