@@ -1,56 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <!-- memo_item.xml -->
-    <LinearLayout
-        android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="16dp">
+
+    <!-- Main content area -->
+<LinearLayout
+android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:orientation="vertical">
+
+    <!-- Title and priority indicator -->
+<LinearLayout
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:orientation="horizontal"
+android:gravity="center_vertical">
+
+<View
+    android:id="@+id/priorityIndicator"
+    android:layout_width="24dp"
+android:layout_height="24dp"
+android:background="@drawable/circle_shape"
+android:layout_marginEnd="8dp"/>
+
+    <TextView
+        android:id="@+id/memoTitle"
+        android:layout_width="269dp"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:layout_weight="1"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="Memo Title"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+</LinearLayout>
 
-        <!-- Priority color-coded circle -->
+<TextView
+android:id="@+id/memoDate"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:hint="Date"
+android:textSize="14sp"
+android:layout_marginTop="4dp"/>
 
-        <!-- Memo Title -->
-        <View
-            android:id="@+id/priorityIndicator"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_gravity="center_vertical"
-            android:background="@drawable/circle_shape"/>
-
-        <TextView
-            android:id="@+id/memoTitle"
-            android:layout_width="152dp"
-            android:layout_height="28dp"
-            android:layout_weight="1"
-            android:paddingStart="16dp"
-            android:text="Memo Title"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <!-- Truncated Description -->
-        <TextView
-            android:id="@+id/memoDate"
-            android:layout_width="152dp"
-            android:layout_height="wrap_content"
-            android:paddingStart="16dp"
-            android:text="Date"
-            android:textSize="14sp" />
-
-        <TextView
-            android:id="@+id/memoDescription"
-            android:layout_width="262dp"
-            android:layout_height="84dp"
-            android:layout_weight="2"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:paddingStart="16dp"
-            android:text="Memo Description"
-            android:textSize="14sp" />
-
-        <!-- Memo Date -->
+<TextView
+android:id="@+id/memoDescription"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:maxLines="2"
+    android:ellipsize="end"
+    android:text="Memo Description"
+    android:textSize="14sp"
+    android:layout_marginTop="4dp"/>
     </LinearLayout>
-
-
 </LinearLayout>

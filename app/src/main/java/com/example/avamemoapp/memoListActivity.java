@@ -22,6 +22,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -47,8 +48,15 @@ public class memoListActivity extends AppCompatActivity {
         MemoDataSource dataSource = new MemoDataSource(this);
         dataSource.open();
 
+        // Load memos from the database
+        memoList = dataSource.getAllMemos();  // Assume this method retrieves all memos from the database
+        dataSource.close();
+
+
+
         // Initialize RecyclerView
         recyclerView = findViewById(R.id.memoRecyclerView);  // Assume you've defined recyclerView in your layout XML
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         memoAdapter = new MemoAdapter(memoList);
         recyclerView.setAdapter(memoAdapter);
 
@@ -66,6 +74,8 @@ public class memoListActivity extends AppCompatActivity {
 
         });
     }
+
+
 
     /// 2
     /// ***initAddMemo(): This method sets up a button (buttonAddMemo) that, when clicked, navigates the user back to the main activity (MainActivity).***

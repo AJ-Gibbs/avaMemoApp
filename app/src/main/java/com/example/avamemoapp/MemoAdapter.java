@@ -27,6 +27,7 @@ public class MemoAdapter extends RecyclerView.Adapter<MemoAdapter.MemoViewHolder
 //        this.listener = listener;
 //    }
 
+
     public MemoAdapter(List<memo> memoList) {
         this.memoList = memoList;
     }
@@ -52,26 +53,35 @@ public class MemoAdapter extends RecyclerView.Adapter<MemoAdapter.MemoViewHolder
     @Override
     public void onBindViewHolder(@NonNull MemoViewHolder holder, int position) {
         memo memo = memoList.get(position);
-        holder.memoTitle.setText(memo.getName());
-        holder.memoText.setText(memo.getMText());
-        //holder.memoDate.setText(memo.getDate());
+        if (memo != null) {
+            holder.memoTitle.setText(memo.getName());
+            holder.memoText.setText(memo.getMText());
+            //holder.memoDate.setText(memo.getDate());
 
 
 // Set the priority colors
-        switch (memo.getPriority().trim()) {
-            case "High":
-                holder.priorityIndicator.setBackgroundColor(Color.RED);
-                break;
-            case "Medium":
-                holder.priorityIndicator.setBackgroundColor(Color.rgb(255, 165, 0)); // Orange instead of Yellow
-                break;
-            case "Low":
-                holder.priorityIndicator.setBackgroundColor(Color.GREEN);
-                break;
-            default:
-                ((TextView) holder.priorityIndicator).setTextColor(Color.GRAY); // Default color for unknown priorities
-                break;
+            switch (memo.getPriority().trim()) {
+                case "High":
+                    holder.priorityIndicator.setBackgroundColor(Color.RED);
+                    break;
+                case "Medium":
+                    holder.priorityIndicator.setBackgroundColor(Color.rgb(255, 165, 0)); // Orange instead of Yellow
+                    break;
+                case "Low":
+                    holder.priorityIndicator.setBackgroundColor(Color.GREEN);
+                    break;
+                default:
+                    ((TextView) holder.priorityIndicator).setTextColor(Color.GRAY); // Default color for unknown priorities
+                    break;
+            }
+        } else{
+            // Handles the case where memo is null
+            holder.memoTitle.setText("No Title");
+            holder.memoText.setText("No Description");
+            holder.memoDate.setText("No Date");
+            holder.priorityIndicator.setBackgroundColor(Color.GRAY); // Default color for unknown priorities
         }
+
 
 
         /// Set the onClickListener for editing and deleting the memo actions
@@ -105,6 +115,7 @@ public class MemoAdapter extends RecyclerView.Adapter<MemoAdapter.MemoViewHolder
         }
 
     }
+
 
 
 }

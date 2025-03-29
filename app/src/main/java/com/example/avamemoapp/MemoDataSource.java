@@ -2,7 +2,12 @@ package com.example.avamemoapp;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
 public class MemoDataSource {
     private SQLiteDatabase database;
@@ -57,4 +62,28 @@ public class MemoDataSource {
     }
 
     //come back and add getMemoName and all the code that comes after
+    // Retrieve all memos from the database
+    public List<memo> getAllMemos() {
+        List<memo> memos = new ArrayList<>();
+        Cursor cursor = database.query("memo", new String[]{"_id", "name", "mText", "priority", "date"},
+                null, null, null, null, null);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                memo m = new memo();
+                m.setMemoID(cursor.getInt(0));
+                m.setName(cursor.getString(1));
+                m.setText(cursor.getString(2));
+                m.setPriority(cursor.getString(3));
+
+                Calendar date = Calendar.getInstance();
+                date.setTimeInMillis(Long.parseLong(cursor.getString(4)));
+                m.setDate(date);
+
+                memos.add(m);
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
+        return memos;
+    }
 }
