@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class MemoDataSource {
     private SQLiteDatabase database;
@@ -60,75 +61,48 @@ public class MemoDataSource {
         return didSucceed;
     }
 
-    //may not use this method
-    //check back here later to define whaat this method does
+    //come back and add getMemoName and all the code that comes after
+    // Retrieve all memos from the database
+    public List<memo> getAllMemos() {
+        //This creates an empty list where all retrieved memos will be stored.
+        List<memo> memos = new ArrayList<>();
+        /// Query the database to retrieve all memos
+        /// The query method returns a Cursor object that contains the results of the query.
+        /// The Cursor object is used to iterate through the results.
+        /// The query() function asks the database for all records from the memo table.
 
-    public ArrayList<String> getMemoName(){
-        ArrayList<String> memoNames = new ArrayList<String>();
-        try {
-            String query = "SELECT name FROM memo";
-            Cursor cursor = database.rawQuery(query, null);
-            cursor.moveToFirst();
-            while (!cursor.isAfterLast()) {
-                memoNames.add(cursor.getString(0));
-                cursor.moveToNext();
-            }
-            cursor.close();
-        } catch (Exception e) {
-            memoNames = new ArrayList<String>();
-        }
-        return memoNames;
-    }
+        Cursor cursor = database.query("memo", new String[]{"_id", "name", "mText", "priority", "date"},
+                null, null, null, null, null);
 
-    public ArrayList<memo> getMemos(String sortField, String sortOrder){
-        ArrayList<memo> memos = new ArrayList<memo>();
-        try {
-            String query = "SELECT * FROM memo ORDER BY " + sortField + " " + sortOrder;
-            Cursor cursor = database.rawQuery(query, null);
-            memo newMemo;
-            cursor.moveToFirst();
-            while (!cursor.isAfterLast()) {
-                newMemo= new memo();
-                newMemo.setMemoID(cursor.getInt(0));
-                newMemo.setName(cursor.getString(1));
-                newMemo.setText(cursor.getString(2));
-                newMemo.setPriority(cursor.getString(3));
-                newMemo.getDate().setTimeInMillis(Long.parseLong(cursor.getString(4)));
-                memos.add(newMemo);
-                cursor.moveToNext();
-            }
+        /// If cursor is not empty and contains at least one memo, we start processing.
+        if (cursor != null && cursor.moveToFirst()) {
+
+            /// Loop through the cursor and create memo objects for each record
+            /// This runs through all the memos in the database one by one.
+            do {
+                /// This creates a new memo to store data retrieved from the database.
+                memo m = new memo();
+                m.setMemoID(cursor.getInt(0));  // Get memo ID (1st column) UNO (MHHH BUT IT'S ACTUALLY zeeee-rooooo
+                m.setName(cursor.getString(1));  // Get memo title (2nd column) DOS
+                m.setText(cursor.getString(2));  // Get memo description (3rd column) TRES
+                m.setPriority(cursor.getString(3));  // Get priority (4th column) CUATRO!!!!!!!!
+
+                /// Get the date from the database and convert it to a Calendar object 🔢➡️🗓️
+                /// The date is stored as a String, so we convert it into a number using Long.parseLong().
+                /// setTimeInMillis() updates the Calendar object to match the stored date.
+                Calendar date = Calendar.getInstance();
+                date.setTimeInMillis(Long.parseLong(cursor.getString(4)));
+                m.setDate(date);
+                /// This ensures the database connection is properly closed.
+                memos.add(m);
+
+                /// This loop keeps running as long as there are more memos in the database.
+                /// Once we reach the last memo, the loop ends.
+            } while (cursor.moveToNext());
+            ///After we’re done reading all memos, we must close it so the app doesn't freaking craxh on us...🫤
             cursor.close();
-        } catch (Exception e) {
-            memos = new ArrayList<memo>();
         }
+        /// The method returns a list of all stored memos. I waNT TO SEE THE MEMOS! 😭
         return memos;
-    }
-
-    public memo getSpecificMemo(int memoID){
-        memo m = new memo();
-        String query = "SELECT * FROM memo WHERE _id = " + memoID;
-        Cursor cursor = database.rawQuery(query, null);
-        if (cursor.moveToFirst()) {
-                m.setMemoID(cursor.getInt(0));
-                m.setName(cursor.getString(1));
-                m.setText(cursor.getString(2));
-                m.setPriority(cursor.getString(3));
-                m.getDate().setTimeInMillis(Long.parseLong(cursor.getString(4)));
-
-            cursor.close();
-        }
-
-        return m;
-    }
-
-    public boolean deleteMemo(int memoID){
-        boolean didDelete = false;
-        try{
-            didDelete = database.delete("memo", "_id=" + memoID, null) > 0;
-        }
-        catch (Exception e){
-            //Do nothing - will return false if there is an exception
-        }
-        return didDelete;
     }
 }
