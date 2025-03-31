@@ -99,7 +99,7 @@ public class MemoDataSource {
                 /// This loop keeps running as long as there are more memos in the database.
                 /// Once we reach the last memo, the loop ends.
             } while (cursor.moveToNext());
-            ///After we’re done reading all memos, we must close it so the app doesn't freaking craxh on us...🫤
+            ///After we’re done reading all memos, we must close it so the app doesn't freaking crash on us...🫤
             cursor.close();
         }
         /// The method returns a list of all stored memos. I waNT TO SEE THE MEMOS! 😭
