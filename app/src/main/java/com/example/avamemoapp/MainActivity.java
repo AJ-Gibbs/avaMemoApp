@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -43,6 +44,13 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         initTextChangedEvents();
         initDateButton();
         currentMemo = new memo();
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            initMemo(extras.getInt("memoID"));
+        }
+        else {
+            currentMemo = new memo();
+        }
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -171,6 +179,28 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 datePickerDialog.show(fm, "DatePick");
             }
         });
+    }
+    private void initMemo(int ID){
+        MemoDataSource ds = new MemoDataSource(MainActivity.this);
+        try {
+            ds.open();
+            currentMemo = ds.getSpecificMemo(ID);
+            ds.close();
+        } catch (Exception e) {
+            Toast.makeText(this, "Load Contact Failed", Toast.LENGTH_SHORT).show();
+        }
+        EditText etMemoName = findViewById(R.id.titleEditText);
+        EditText etMemoText = findViewById(R.id.mTextEditText);
+        Spinner etMemoPriority = findViewById(R.id.prioritySpinner);
+        TextView dateTextView = findViewById(R.id.dateTextView);
+
+        etMemoName.setText(currentMemo.getName());
+        etMemoText.setText(currentMemo.getMText());
+        // Set the spinner to the current priority
+        String currentPriority = currentMemo.getPriority();
+
+
+
     }
 
 }
