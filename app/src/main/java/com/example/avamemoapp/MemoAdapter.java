@@ -27,7 +27,7 @@ public class MemoAdapter extends RecyclerView.Adapter<MemoAdapter.MemoViewHolder
 
     private List<memo> memoList; /// List holding all memos
 
-    private View.OnClickListener memoClickListener; /// Listener for memo item click
+    private static View.OnClickListener memoClickListener; /// Listener for memo item click
 
     /// 1
     ///Constructor for the MemoAdapter class
@@ -125,6 +125,8 @@ public class MemoAdapter extends RecyclerView.Adapter<MemoAdapter.MemoViewHolder
             priorityIndicator = itemView.findViewById(R.id.priorityIndicator);
             //editButton = itemView.findViewById(R.id.editButton);
             //deleteButton = itemView.findViewById(R.id.deleteButton);
+            itemView.setTag(this);
+            itemView.setOnClickListener(memoClickListener);
         }
 
     }
