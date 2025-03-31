@@ -64,7 +64,7 @@ public class memoListActivity extends AppCompatActivity {
         /// Call the method here to go back to the main activity
         /// Invesiti...I meant Initialize the buttons 😭
         initAddMemo();   // Button to add a new memo
-        initHomeButton(); // Button to return to the home screen
+        //initHomeButton(); // Button to return to the home screen
         initNext2Button(); // Button to navigate to settings page
 
         /// SHE DOESN'T EVEN GO HERE!!!! 🫥😶🤔😑
@@ -96,18 +96,18 @@ public class memoListActivity extends AppCompatActivity {
     /// 3
     ///  Similar to initAddMemo(), but this button takes the user back to the main activity.
     /// This takes us back to the main activity (basically does the same thing as the initAddMemo method just wanted to try something different...kind of...ehhh)
-    private void initHomeButton() {
-        Button button = findViewById(R.id.buttonHome);
-        button.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(memoListActivity.this, MainActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-            }
-        });
-    }
+//    private void initHomeButton() {
+//        Button button = findViewById(R.id.buttonHome);
+//        button.setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(memoListActivity.this, MainActivity.class);
+//                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                startActivity(intent);
+//            }
+//        });
+//    }
 
     /// 4
     /// This button navigates the user to a MemoSettingsActivity.

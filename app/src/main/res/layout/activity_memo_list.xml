@@ -36,14 +36,15 @@
 
     <!-- Existing Bottom LinearLayout -->
 
+    <!-- Button for the home screen -->
+    <!--
     <Button
         android:id="@+id/buttonHome"
         android:layout_width="115dp"
         android:layout_height="37dp"
         android:layout_weight="1"
         android:backgroundTint="#c69e5d"
-
-        android:text="| Home |"
+        android:text="| Delete |"
         android:textColor="#514D56"
         android:textSize="11sp"
         app:iconTint="#000000"
@@ -53,7 +54,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.889" />
-
+        -->
     <!-- Sort By Section -->
 
     <!-- New Priority and Date Section -->
@@ -190,6 +191,21 @@
         app:layout_constraintTop_toTopOf="@+id/lineartop"
         app:layout_constraintVertical_bias="0.889" />
 
+    <!-- The Toggle to Delete Switch -->
+
+    <Switch
+        android:id="@+id/switch1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delete..."
+        android:background="#c69e5d"
+        app:layout_constraintBottom_toBottomOf="@+id/linearbottom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.848"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/lineartop"
+        app:layout_constraintVertical_bias="0.88" />
+
     <TextView
         android:id="@+id/randomPlaceholder"
         android:layout_width="wrap_content"
@@ -215,6 +231,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/lineartop"
         app:layout_constraintVertical_bias="0.095" />
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
