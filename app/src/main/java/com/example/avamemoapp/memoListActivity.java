@@ -35,6 +35,19 @@ public class memoListActivity extends AppCompatActivity {
     private MemoAdapter memoAdapter;   // Adapter to bind data to RecyclerView
     private List<memo> memoList;       // List to store memos from database
 
+    //a listener for when an item on the list is clicked and navigates to the main activity with the data populated
+    private View.OnClickListener memoClickListener=new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) view.getTag();
+            int position = viewHolder.getAdapterPosition();
+            int memoID = memoList.get(position).getMemoID();
+            Intent intent = new Intent(memoListActivity.this, MainActivity.class);
+            intent.putExtra("memoID", memoID);
+            startActivity(intent);
+        }
+    };
+
 
     /// 1
     /// The onCreate method is called when the activity is first created.
@@ -60,6 +73,8 @@ public class memoListActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.memoRecyclerView);  /// Get RecyclerView from XML
         recyclerView.setLayoutManager(new LinearLayoutManager(this)); /// Arrange items in a vertical list
         memoAdapter = new MemoAdapter(memoList); /// Attach adapter to handle memo data
+        //for the memo click listener - AJ
+        memoAdapter.setOnItemClickListener(memoClickListener);
         recyclerView.setAdapter(memoAdapter); /// Set adapter for RecyclerView
 
         /// Call the method here to go back to the main activity

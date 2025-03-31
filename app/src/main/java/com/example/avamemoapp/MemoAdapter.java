@@ -27,6 +27,8 @@ public class MemoAdapter extends RecyclerView.Adapter<MemoAdapter.MemoViewHolder
 
     private List<memo> memoList; /// List holding all memos
 
+    private View.OnClickListener memoClickListener; /// Listener for memo item click
+
     /// 1
     ///Constructor for the MemoAdapter class
     /// This constructor initializes the memoList with the provided list of memos
@@ -125,6 +127,10 @@ public class MemoAdapter extends RecyclerView.Adapter<MemoAdapter.MemoViewHolder
             //deleteButton = itemView.findViewById(R.id.deleteButton);
         }
 
+    }
+
+    public void setOnItemClickListener(View.OnClickListener listener) {
+        memoClickListener = listener;
     }
 
 
