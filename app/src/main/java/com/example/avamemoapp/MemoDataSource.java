@@ -105,4 +105,23 @@ public class MemoDataSource {
         /// The method returns a list of all stored memos. I waNT TO SEE THE MEMOS! 😭
         return memos;
     }
+
+
+    public memo getSpecificMemo(int memoID){
+        memo m = new memo();
+        String query = "SELECT * FROM memo WHERE _id = " + memoID;
+        Cursor cursor = database.rawQuery(query, null);
+        if (cursor.moveToFirst()) {
+            m.setMemoID(cursor.getInt(0));
+            m.setName(cursor.getString(1));
+            m.setText(cursor.getString(2));
+            m.setPriority(cursor.getString(3));
+            m.getDate().setTimeInMillis(Long.parseLong(cursor.getString(4)));
+
+            cursor.close();
+        }
+
+        return m;
+    }
+
 }

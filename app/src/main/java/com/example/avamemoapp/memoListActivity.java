@@ -35,6 +35,7 @@ public class memoListActivity extends AppCompatActivity {
     private MemoAdapter memoAdapter;   // Adapter to bind data to RecyclerView
     private List<memo> memoList;       // List to store memos from database
 
+
     /// 1
     /// The onCreate method is called when the activity is first created.
     /// - Sets up the layout.
