@@ -14,6 +14,7 @@ This is the memoListActivity class. This class is responsible for the memo list 
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -40,11 +41,11 @@ public class memoListActivity extends AppCompatActivity {
     RecyclerView recyclerView; // RecyclerView to display memos
     MemoAdapter memoAdapter;   // Adapter to bind data to RecyclerView
     List<memo> memoList;       // List to store memos from database
-    Spinner sortBySpinner; // Spinner for sorting memos
+    //Spinner sortBySpinner; // Spinner for sorting memos
 
 
     //a listener for when an item on the list is clicked and navigates to the main activity with the data populated
-    private View.OnClickListener memoClickListener=new View.OnClickListener() {
+    private View.OnClickListener memoClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) view.getTag();
@@ -62,7 +63,6 @@ public class memoListActivity extends AppCompatActivity {
     /// - Sets up the layout.
     /// - Loads memos from the database.
     /// - Configures RecyclerView and buttons.
-    ///
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -117,7 +117,7 @@ public class memoListActivity extends AppCompatActivity {
         sortBySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                sortMemos(position);
+                sortMemos(position); // Call the method to sort memos based on the selected option/changes
             }
 
             @Override
@@ -134,6 +134,7 @@ public class memoListActivity extends AppCompatActivity {
 
         });
     }
+
     /// 1.C
     /// Method to sort memos based on the selected option from the spinner
     /// This method sorts the memos based on the selected option from the spinner
@@ -143,36 +144,37 @@ public class memoListActivity extends AppCompatActivity {
     /// 1 - Sort by title (name/subject)
     /// 2 - Sort by priority
     private void sortMemos(int position) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
 
-        switch (position) {
-
-            case 0: /// Sort by date
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            switch (position) {
+                case 0: /// Sort by date
                     memoList.sort(Comparator.comparing(memo::getDate));
-                }
-                break;
+            break;
+
             case 1: /// Sort by title (name/subject)
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    memoList.sort(Comparator.comparing(memo::getName));
-                }
-                break;
+                memoList.sort(Comparator.comparing(memo::getName));
+            break;
+
             case 2: /// Sort by priority
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     //Sorts it by the specified priority that we created down below
                     memoList.sort(Comparator
                             .comparingInt((memo m) -> sortByPriorityToInt(m.getPriority()))
-                            .thenComparing(memo::getName));
-                }
-                break;
+                            .thenComparing(memo::getName)); // Then sort by name
+            break;
         }
+            // Log the sorted list for debugging
+            for (memo m : memoList) {
+                Log.d("Sorted Memo", "Name: " + m.getName() + ", Priority: " + m.getPriority());
+            }
         memoAdapter.notifyDataSetChanged(); // Notify adapter to refresh the view
     }
+}
 
     /// 1.D
     ///Sorting the memo priority high - low
     /// Basically, this method converts the priority string to an integer for sorting purposes to use above
-    private int sortByPriorityToInt(String priority) {
-        switch (priority.toLowerCase()){
+    private int sortByPriorityToInt(String color) {
+        switch (color.toLowerCase()){
             case "high":
                 return 1;
             case "medium":
