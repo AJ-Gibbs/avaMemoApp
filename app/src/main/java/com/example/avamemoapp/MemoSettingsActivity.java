@@ -42,7 +42,7 @@ public class MemoSettingsActivity extends AppCompatActivity {
        // EdgeToEdge.enable(this);
         setContentView(R.layout.activity_memo_settings);
 
-        initHome2Button(); // Home button
+        //initHome2Button(); // Home button
         initBackButton();  // Back button
 
 //        // Handle screen edge insets
@@ -126,7 +126,7 @@ public class MemoSettingsActivity extends AppCompatActivity {
     }
 
     //Home button goes to MainActivity
-    private void initHome2Button() {
+    /*private void initHome2Button() {
         Button button = findViewById(R.id.buttonHome2);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,7 +136,7 @@ public class MemoSettingsActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-    }
+    }*/
 
     //Back button goes to memoListActivity
     private void initBackButton() {

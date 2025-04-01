@@ -224,7 +224,7 @@
         android:layout_width="112dp"
         android:layout_height="39dp"
         android:backgroundTint="#5f7821"
-        android:text="Next . . . "
+        android:text="Settings"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.946"
