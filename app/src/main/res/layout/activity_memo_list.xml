@@ -194,11 +194,10 @@
     <!-- The Toggle to Delete Switch -->
 
     <Switch
-        android:id="@+id/switch1"
+        android:id="@+id/switchDelete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Delete..."
-        android:background="#c69e5d"
         app:layout_constraintBottom_toBottomOf="@+id/linearbottom"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.848"

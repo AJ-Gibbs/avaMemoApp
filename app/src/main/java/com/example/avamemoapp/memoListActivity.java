@@ -15,7 +15,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.Spinner;
+import android.widget.Switch;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,9 +33,9 @@ import java.util.List;
 /// handling UI elements such as buttons, and controlling navigation to other activities.
 /// This is the activity that shows the RecyclerView with all the memos.
 public class memoListActivity extends AppCompatActivity {
-    private RecyclerView recyclerView; // RecyclerView to display memos
-    private MemoAdapter memoAdapter;   // Adapter to bind data to RecyclerView
-    private List<memo> memoList;       // List to store memos from database
+    RecyclerView recyclerView; // RecyclerView to display memos
+    MemoAdapter memoAdapter;   // Adapter to bind data to RecyclerView
+    List<memo> memoList;       // List to store memos from database
 
     //a listener for when an item on the list is clicked and navigates to the main activity with the data populated
     private View.OnClickListener memoClickListener=new View.OnClickListener() {
@@ -72,7 +74,8 @@ public class memoListActivity extends AppCompatActivity {
         /// Initialize RecyclerView.,..gotta love the RecyclerView..let's make sure it's all set up NICELY 🌞 🐳
         recyclerView = findViewById(R.id.memoRecyclerView);  /// Get RecyclerView from XML
         recyclerView.setLayoutManager(new LinearLayoutManager(this)); /// Arrange items in a vertical list
-        memoAdapter = new MemoAdapter(memoList); /// Attach adapter to handle memo data
+        memoAdapter = new MemoAdapter(memoList, this); /// Attach adapter to handle memo data
+
         //for the memo click listener - AJ
         memoAdapter.setOnItemClickListener(memoClickListener);
         recyclerView.setAdapter(memoAdapter); /// Set adapter for RecyclerView
@@ -80,8 +83,8 @@ public class memoListActivity extends AppCompatActivity {
         /// Call the method here to go back to the main activity
         /// Invesiti...I meant Initialize the buttons 😭
         initAddMemo();   // Button to add a new memo
-        //initHomeButton(); // Button to return to the home screen
         initNext2Button(); // Button to navigate to settings page
+        initDeleteSwitch(); // Switch to enable/disable delete mode
 
         /// SHE DOESN'T EVEN GO HERE!!!! 🫥😶🤔😑
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -109,23 +112,8 @@ public class memoListActivity extends AppCompatActivity {
         });
     }
 
-    /// 3
-    ///  Similar to initAddMemo(), but this button takes the user back to the main activity.
-    /// This takes us back to the main activity (basically does the same thing as the initAddMemo method just wanted to try something different...kind of...ehhh)
-//    private void initHomeButton() {
-//        Button button = findViewById(R.id.buttonHome);
-//        button.setOnClickListener(new View.OnClickListener() {
-//
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(memoListActivity.this, MainActivity.class);
-//                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                startActivity(intent);
-//            }
-//        });
-//    }
 
-    /// 4
+    /// 3
     /// This button navigates the user to a MemoSettingsActivity.
     /// This takes us to the MEMO settings page... Is aiden a thing? I said what I said!
     private void initNext2Button() {
@@ -141,12 +129,18 @@ public class memoListActivity extends AppCompatActivity {
         });
     }
 
-    /// 5
+    /// 4
     ///This is for the Swiper-to-delete functionality
     /// This section will be used to implement swipe-to-delete functionality for memos.
     /// More like a button to delete it just like we did in our contacts list
+    ///If the switch is turned on, enables delete mode.
+    /// Initializes delete switch for enabling/disabling delete mode
+    private void initDeleteSwitch() {
+        Switch deleteSwitch = findViewById(R.id.switchDelete);
+        deleteSwitch.setOnCheckedChangeListener((compoundButton, isChecked) -> {
+            memoAdapter.setDelete(isChecked); // Update delete mode in adapter
+            memoAdapter.notifyDataSetChanged(); // Notify adapter to refresh the view
+        });
+    }
 
-    /// 6
-    ///This is for the Tap-to-edit functionality
-    /// More like a button to edit it just like we did in our contacts list
 }
