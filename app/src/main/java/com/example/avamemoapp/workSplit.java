@@ -23,7 +23,7 @@ Drew: MemoSettingsActivity
 - listView
 - filter memos
 - shared preferences
--
+-sort memos
 
 Val: MemoListActivity, MemoAdapter,
 - RecyclerView
@@ -31,6 +31,7 @@ Val: MemoListActivity, MemoAdapter,
 - delete memo
 - UI design
 - navigation buttons
+- sort memo list
 
 
 

@@ -123,8 +123,6 @@ public class MemoDataSource {
 
         return m;
     }
-
-    //This is the method that will delete a memo from the database
     public boolean deleteMemo(int memoId) { //This is the method that will delete a memo from the database
         boolean didDelete = false; //create a boolean variable to store the result of the deletion
         try { //try to delete the memo
