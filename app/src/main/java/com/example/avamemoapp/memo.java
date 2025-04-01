@@ -13,6 +13,7 @@ public class memo {
 
     private Calendar date;
 
+
     public memo (){
         memoID = -1;
         date = Calendar.getInstance();
@@ -57,6 +58,7 @@ public class memo {
     public void setDate (Calendar date){
         this.date = date;
     }
+
 
 
 }

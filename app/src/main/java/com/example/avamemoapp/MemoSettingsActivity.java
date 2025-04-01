@@ -1,6 +1,7 @@
 package com.example.avamemoapp;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -13,14 +14,6 @@ import android.widget.ListView;
 import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
-//import androidx.core.view.ViewCompat;
-//import androidx.core.view.WindowInsetsCompat;
-//import androidx.core.view.WindowInsetsCompat.Insets;
-//import androidx.core.view.WindowInsetsControllerCompat;
-//import androidx.core.view.WindowInsetsControllerCompat.Behavior;
-//import androidx.core.view.WindowInsetsControllerCompat.Type;
-
-//import com.google.android.material.edgeeffect.EdgeToEdge;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -39,31 +32,41 @@ public class MemoSettingsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       // EdgeToEdge.enable(this);
         setContentView(R.layout.activity_memo_settings);
 
-        //initHome2Button(); // Home button
-        initBackButton();  // Back button
+        initBackButton();  //Back button
 
-//        // Handle screen edge insets
-//        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.memo_filter_page), (v, insets) -> {
-//            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-//            return insets;
-//        });
-
-        // Connect views
+        //Connect views
         searchBar = findViewById(R.id.searchBar);
         priorityFilter = findViewById(R.id.priorityFilter);
         memoListView = findViewById(R.id.memoListView);
 
-        // Load data
+        //Load data
         MemoDataSource ds = new MemoDataSource(this);
         ds.open();
         allMemos = ds.getAllMemos();
         ds.close();
 
         filteredMemos = new ArrayList<>(allMemos);
+
+        //Load saved search + priority from SharedPreferences
+        SharedPreferences prefs = getSharedPreferences("MemoPrefs", MODE_PRIVATE);
+        String savedSearch = prefs.getString("searchText", "");
+        String savedPriority = prefs.getString("selectedPriority", "All");
+
+        //Set search bar to last typed text
+        searchBar.setText(savedSearch);
+
+        //Set spinner to last selected priority
+        ArrayAdapter adapter = (ArrayAdapter) priorityFilter.getAdapter();
+        if (adapter != null) {
+            int position = adapter.getPosition(savedPriority);
+            if (position >= 0) {
+                priorityFilter.setSelection(position);
+            }
+        }
+
+        //Initial list display
         updateList();
 
         //TextWatcher: search as you type
@@ -88,10 +91,17 @@ public class MemoSettingsActivity extends AppCompatActivity {
         });
     }
 
-    // Update the list view with filtered + searched memos
+    //Update the list view with filtered + searched memos
     private void updateList() {
         String searchText = searchBar.getText().toString().toLowerCase();
         String selectedPriority = priorityFilter.getSelectedItem().toString();
+
+        //Save the current search and filter choice
+        SharedPreferences prefs = getSharedPreferences("MemoPrefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("searchText", searchBar.getText().toString());
+        editor.putString("selectedPriority", selectedPriority);
+        editor.apply();
 
         filteredMemos.clear();
 
@@ -99,7 +109,7 @@ public class MemoSettingsActivity extends AppCompatActivity {
             //If the title OR the description includes the search word, this becomes true
             boolean matchesSearch = m.getName().toLowerCase().contains(searchText)
                     || m.getMText().toLowerCase().contains(searchText);
-            //If the user chose "All" in the priority filter, we include everything, otherwise we only include the selected priority
+            //If the user chose "All" in the priority filter, we include everything
             boolean matchesPriority = selectedPriority.equals("All") || m.getPriority().equalsIgnoreCase(selectedPriority);
 
             if (matchesSearch && matchesPriority) {
@@ -124,19 +134,6 @@ public class MemoSettingsActivity extends AppCompatActivity {
         memoListAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, displayList);
         memoListView.setAdapter(memoListAdapter);
     }
-
-    //Home button goes to MainActivity
-    /*private void initHome2Button() {
-        Button button = findViewById(R.id.buttonHome2);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MemoSettingsActivity.this, MainActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-            }
-        });
-    }*/
 
     //Back button goes to memoListActivity
     private void initBackButton() {

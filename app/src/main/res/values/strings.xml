@@ -1,4 +1,15 @@
 <resources>
+
+    <!--
+    This stores a list of options: "All", "High", "Medium", and "Low".
+    In a list in a dropdown menu (like a spinner) where the user can choose a priority level.
+    Helps keep the code organized and storing the text in one place makes the app cleaner and easier to update.
+
+
+    This line stores the name of our app ("Ava Memo App").
+    Instead of typing it directly in different places, we store it here so we  can use it wherever we need.
+    For example, in the app settings or on the home screen.
+    -->
     <string name="app_name">Ava Memo App</string>
     <string-array name="priority_options">
         <item>All</item>
@@ -6,6 +17,12 @@
         <item>Medium</item>
         <item>Low</item>
     </string-array>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="sort_options">
+        <item>Date</item>
+        <item>Priority</item>
+        <item>Subject</item>
+    </string-array>
+
+
 </resources>
