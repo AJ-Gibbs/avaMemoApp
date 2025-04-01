@@ -123,5 +123,16 @@ public class MemoDataSource {
 
         return m;
     }
+    public boolean deleteMemo(int memoId) { //This is the method that will delete a memo from the database
+        boolean didDelete = false; //create a boolean variable to store the result of the deletion
+        try { //try to delete the memo
+            //if the deletion is successful, set the boolean variable to true
+            didDelete = database.delete("memo", "_id=" + memoId, null) > 0;
+        }
+        catch (Exception e) { //catch any exceptions that may occur
+            //Do nothing -return value already set to false
+        }
+        return didDelete; //return the boolean variable
+    }
 
 }
