@@ -146,27 +146,35 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                boolean wasSuccessful = false;
-                MemoDataSource ds = new MemoDataSource(MainActivity.this);
-                try {
-                    ds.open();
-
-                    if (currentMemo.getMemoID() == -1) {
-                        wasSuccessful = ds.insert(currentMemo);
-
-                    }
-
-                    else {
-                        wasSuccessful = ds.update(currentMemo);
-                    }
-                    ds.close();
-                } catch (Exception e) {
-                    wasSuccessful = false;
+                if (currentMemo.getName() == null) {
+                    Toast.makeText(MainActivity.this, "Please enter a name", Toast.LENGTH_SHORT).show();
+                    return;
                 }
-                if (wasSuccessful) {
-                    Intent intent = new Intent(MainActivity.this, memoListActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent);
+                else if (currentMemo.getMText() == null) {
+                    Toast.makeText(MainActivity.this, "Please enter a memo", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                else {
+                    boolean wasSuccessful = false;
+                    MemoDataSource ds = new MemoDataSource(MainActivity.this);
+                    try {
+                        ds.open();
+
+                        if (currentMemo.getMemoID() == -1) {
+                            wasSuccessful = ds.insert(currentMemo);
+
+                        } else {
+                            wasSuccessful = ds.update(currentMemo);
+                        }
+                        ds.close();
+                    } catch (Exception e) {
+                        wasSuccessful = false;
+                    }
+                    if (wasSuccessful) {
+                        Intent intent = new Intent(MainActivity.this, memoListActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
+                    }
                 }
 
             }
