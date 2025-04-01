@@ -154,13 +154,13 @@
 
         <TextView
             android:id="@+id/dateTextView"
-            android:layout_width="85dp"
+            android:layout_width="112dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="8dp"
             android:text="1/1/2025"
             android:textColor="#F2E7E7"
-            android:textSize="18sp" />
+            android:textSize="20sp" />
 
         <!-- Auto-fill with current date -->
     </LinearLayout>
@@ -210,17 +210,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.761" />
-
-    <TextView
-        android:id="@+id/textValidation"
-        android:layout_width="216dp"
-        android:layout_height="21dp"
-        android:layout_marginTop="20dp"
-        android:hint="Validation Message Incoming. . ."
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.225"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayoutLong" />
 
     <TextView
         android:id="@+id/randomPlacement"
