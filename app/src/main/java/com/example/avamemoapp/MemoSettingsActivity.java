@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,6 +25,7 @@ public class MemoSettingsActivity extends AppCompatActivity {
     EditText searchBar;
     Spinner priorityFilter;
     ListView memoListView;
+    RadioGroup sortOptions;
 
     List<memo> allMemos;
     List<memo> filteredMemos;
@@ -34,14 +36,18 @@ public class MemoSettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_memo_settings);
 
-        initBackButton();  //Back button
+        initBackButton();
 
-        //Connect views
+        //Connect views to layout
         searchBar = findViewById(R.id.searchBar);
         priorityFilter = findViewById(R.id.priorityFilter);
         memoListView = findViewById(R.id.memoListView);
+        sortOptions = findViewById(R.id.sortOptions);
 
-        //Load data
+        //When user changes sort option, update the list
+        sortOptions.setOnCheckedChangeListener((group, checkedId) -> updateList());
+
+        //Load memos from database
         MemoDataSource ds = new MemoDataSource(this);
         ds.open();
         allMemos = ds.getAllMemos();
@@ -49,15 +55,15 @@ public class MemoSettingsActivity extends AppCompatActivity {
 
         filteredMemos = new ArrayList<>(allMemos);
 
-        //Load saved search + priority from SharedPreferences
+        //Load saved search + filter from SharedPreferences
         SharedPreferences prefs = getSharedPreferences("MemoPrefs", MODE_PRIVATE);
         String savedSearch = prefs.getString("searchText", "");
         String savedPriority = prefs.getString("selectedPriority", "All");
 
-        //Set search bar to last typed text
+        //Restore previous search text
         searchBar.setText(savedSearch);
 
-        //Set spinner to last selected priority
+        //Restore previously selected priority
         ArrayAdapter adapter = (ArrayAdapter) priorityFilter.getAdapter();
         if (adapter != null) {
             int position = adapter.getPosition(savedPriority);
@@ -66,10 +72,10 @@ public class MemoSettingsActivity extends AppCompatActivity {
             }
         }
 
-        //Initial list display
+        //Show list at first load
         updateList();
 
-        //TextWatcher: search as you type
+        //Update list as user types
         searchBar.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
@@ -80,7 +86,7 @@ public class MemoSettingsActivity extends AppCompatActivity {
             @Override public void onTextChanged(CharSequence s, int start, int before, int count) {}
         });
 
-        //Spinner: filter by priority
+        //Update list when user picks a new priority
         priorityFilter.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView parent, View view, int position, long id) {
@@ -91,36 +97,51 @@ public class MemoSettingsActivity extends AppCompatActivity {
         });
     }
 
-    //Update the list view with filtered + searched memos
+    //Filter, sort, and display the memo list
     private void updateList() {
         String searchText = searchBar.getText().toString().toLowerCase();
         String selectedPriority = priorityFilter.getSelectedItem().toString();
 
-        //Save the current search and filter choice
+        //Save current filter and search in SharedPreferences
         SharedPreferences prefs = getSharedPreferences("MemoPrefs", MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString("searchText", searchBar.getText().toString());
         editor.putString("selectedPriority", selectedPriority);
         editor.apply();
 
+        //Clear the filtered list and re-fill based on search and priority
         filteredMemos.clear();
 
         for (memo m : allMemos) {
-            //If the title OR the description includes the search word, this becomes true
             boolean matchesSearch = m.getName().toLowerCase().contains(searchText)
                     || m.getMText().toLowerCase().contains(searchText);
-            //If the user chose "All" in the priority filter, we include everything
-            boolean matchesPriority = selectedPriority.equals("All") || m.getPriority().equalsIgnoreCase(selectedPriority);
+
+            boolean matchesPriority = selectedPriority.equals("All") ||
+                    m.getPriority().equalsIgnoreCase(selectedPriority);
 
             if (matchesSearch && matchesPriority) {
                 filteredMemos.add(m);
             }
         }
 
+        //Sort the filtered memos based on selected sort option
+        int selectedSortId = sortOptions.getCheckedRadioButtonId();
+        //case-insensitive
+        if (selectedSortId == R.id.sortByPriority) {
+            // Sort alphabetically by priority (High, Low, Medium by default text order)
+            filteredMemos.sort((m1, m2) -> m1.getPriority().compareToIgnoreCase(m2.getPriority()));
+        } else if (selectedSortId == R.id.sortBySubject) {
+            // Sort alphabetically by memo title
+            filteredMemos.sort((m1, m2) -> m1.getName().compareToIgnoreCase(m2.getName()));
+        } else if (selectedSortId == R.id.sortByDate) {
+            // Sort by date (newest first)
+            filteredMemos.sort((m1, m2) -> m1.getDate().compareTo(m1.getDate()));
+        }
+
+        //Create the display list
         List<String> displayList = new ArrayList<>();
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 
-        //Goes through each memo in the list and builds a short summary of that memo as a String
         for (memo m : filteredMemos) {
             String title = m.getName();
             String description = m.getMText();
@@ -131,11 +152,12 @@ public class MemoSettingsActivity extends AppCompatActivity {
             displayList.add(info);
         }
 
+        //Set up the list adapter to display the results
         memoListAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, displayList);
         memoListView.setAdapter(memoListAdapter);
     }
 
-    //Back button goes to memoListActivity
+    //Back button takes user back to memo list
     private void initBackButton() {
         Button button = findViewById(R.id.buttonBack);
         button.setOnClickListener(new View.OnClickListener() {
