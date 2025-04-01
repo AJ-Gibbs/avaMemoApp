@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         initSaveButton();
         initTextChangedEvents();
         initDateButton();
+        initSettingsButton();
         currentMemo = new memo();
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -68,6 +69,18 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, memoListActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            }
+        });
+    }
+    private void initSettingsButton() {
+        Button button = findViewById(R.id.settingsButton);
+        button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, MemoSettingsActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }
