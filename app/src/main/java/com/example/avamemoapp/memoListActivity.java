@@ -30,6 +30,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.Comparator;
 import java.util.List;
 
 /// The memoListActivity class is responsible for displaying the list of memos,
@@ -139,28 +140,52 @@ public class memoListActivity extends AppCompatActivity {
     /// The sorting options are defined in the string.xml file
     /// The sorting options are:
     /// 0 - Sort by date
-    /// 1 - Sort by title (name)
+    /// 1 - Sort by title (name/subject)
     /// 2 - Sort by priority
     private void sortMemos(int position) {
+
         switch (position) {
-            case 0:
+
+            case 0: /// Sort by date
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    memoList.sort((memo m1, memo m2) -> m1.getDate().compareTo(m2.getDate()));
+                    memoList.sort(Comparator.comparing(memo::getDate));
                 }
                 break;
-            case 1:
+            case 1: /// Sort by title (name/subject)
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    memoList.sort((memo m1, memo m2) -> m1.getName().compareTo(m2.getName()));
+                    memoList.sort(Comparator.comparing(memo::getName));
                 }
                 break;
-            case 2:
+            case 2: /// Sort by priority
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    memoList.sort((memo m1, memo m2) -> m1.getPriority().compareTo(m2.getPriority()));
+                    //Sorts it by the specified priority that we created down below
+                    memoList.sort(Comparator
+                            .comparingInt((memo m) -> sortByPriorityToInt(m.getPriority()))
+                            .thenComparing(memo::getName));
                 }
                 break;
         }
         memoAdapter.notifyDataSetChanged(); // Notify adapter to refresh the view
     }
+
+    /// 1.D
+    ///Sorting the memo priority high - low
+    /// Basically, this method converts the priority string to an integer for sorting purposes to use above
+    private int sortByPriorityToInt(String priority) {
+        switch (priority.toLowerCase()){
+            case "high":
+                return 1;
+            case "medium":
+                return 2;
+            case "low":
+                return 3;
+            default:
+                //gets the lowest int value for the "All" option --> makes it appear first
+                return Integer.MIN_VALUE; // Default for  "All" options or even --> unknown priorities
+
+        }
+    }
+
 
     /// 2
     /// initAddMemo() - Handles "Add Memo" button click.
