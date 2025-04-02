@@ -260,6 +260,7 @@ public class memoListActivity extends AppCompatActivity {
     private void initDeleteSwitch() {
         Switch deleteSwitch = findViewById(R.id.switchDelete);
         deleteSwitch.setOnCheckedChangeListener((compoundButton, isChecked) -> {
+            /// in Memo Adapter
             memoAdapter.setDelete(isChecked); /// Update delete mode in adapter
             memoAdapter.notifyDataSetChanged(); /// Notify adapter to refresh the view
         });

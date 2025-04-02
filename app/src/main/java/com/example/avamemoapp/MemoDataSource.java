@@ -123,6 +123,8 @@ public class MemoDataSource {
 
         return m; // return the memo object with the retrieved data
     }
+
+    /// In the Memo Adapter class, we will use this method to delete a memo from the database
     public boolean deleteMemo(int memoId) { //This is the method that will delete a memo from the database
         boolean didDelete = false; //create a boolean variable to store the result of the deletion
         try { //try to delete the memo

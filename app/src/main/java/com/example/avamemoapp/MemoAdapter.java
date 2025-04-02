@@ -192,6 +192,7 @@ public class MemoAdapter extends RecyclerView.Adapter<MemoAdapter.MemoViewHolder
 
     /// 8
     /// Here this method turns delete mode (switch) on or off
+    /// In MemoListActivity, this method is called when the delete button is clicked
     public void setDelete(boolean isDeleting) {
         //controls whether delete functionality is active.
         this.isDeleting = isDeleting; //sets the isDeleting flag to the given value
