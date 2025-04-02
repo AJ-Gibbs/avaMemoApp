@@ -41,7 +41,6 @@ public class memoListActivity extends AppCompatActivity {
     RecyclerView recyclerView; // RecyclerView to display memos
     MemoAdapter memoAdapter;   // Adapter to bind data to RecyclerView
     List<memo> memoList;       // List to store memos from database
-    //Spinner sortBySpinner; // Spinner for sorting memos
 
 
     /// A listener for when an item on the list is clicked and navigates to the main activity with the data populated
@@ -143,27 +142,57 @@ public class memoListActivity extends AppCompatActivity {
     }
 
     /// 1.C
-    /// Method to sort memos based on the selected option from the spinner
-    ///Sorting the memo priority high - low
+    /// Method to sort memos based on the selected option from the spinner (that the user selected)
     private void sortMemos() {
+        /// Gets a reference to the spinner from the layout
         Spinner sortBySpinner = findViewById(R.id.sortBySpinner);
+        /// 🌟 Grabs the CURRENT selection (what the user picked) from the spinner and then returns it as a string so we can use it later (DOWN THE LINE)
         String selectedOption = sortBySpinner.getSelectedItem().toString(); // Get the selected option from the spinner
+        ///This is just for debugging purposes ----> to makes sure the selected option is being logged correctly
         Log.d("MemoListActivity", "Selected sorting option: " + selectedOption); // Log the selected option for debugging
 
-        /// Sort the memoList based on the selected option
+        /// 🌟 Sort the memoList based on the selected option ---> (the string we got from the spinner)
         switch (selectedOption) {
             case "Date":
+                /// This line checks if the version of Android the user is running supports certain sorting methods (N ---> is Android Nougat)
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    memoList.sort(Comparator.comparing(memo::getDate)); // Sort by priority in descending order
+
+                    /// 🌟 Sorts the memo based on the date AND compares each memo date using the getDate() method in the memo class
+                    /// Sort Date from earliest/oldest to newest/most recent
+
+                    /// 🌟 Why use Comparator? Because it allows us to compare objects (OUR MEMOS) in a custom way,
+                    /// 🌟 We're basically telling java the specific way we want our memos to be sorted
+                    memoList.sort(Comparator.comparing(memo::getDate));
                 }
-                break;
+                break; // just stops here and doesn't check the other cases
+
             case "Priority":
+                /// Sort by High > Medium > Low
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+
+                    /// Sorts the memo based on the priority AND compares each memo priority using the getPriority() method in the memo class
+                    /// Sorts the memo based on the priority (High > Medium > Low) using a custom method to get the priority value
+                    /// This is done by comparing the priority values using the getPriorityValue() method
+                    /// This method is defined below and returns an integer value for each priority level
+                    /// The memoList is sorted in descending order (High > Medium > Low)
+
+                    /// 🌟 Compares the memo priorities using the getPriority() method and converts them to
+                    /// 🌟 integer values so that we can sort them from highest to lowest
+
                     memoList.sort((memo1, memo2) -> Integer.compare(getPriorityValue(memo2.getPriority()), getPriorityValue(memo1.getPriority())));
                 }
                 break;
+
             case "Subject":
+                /// Sort by Subject (Title) A-Z
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+
+                    /// Sorts the memo based on the name AND compares each memo name using the getName() method in the memo class
+                    /// Sorts the memo based on the name (Title) in alphabetical order (A-Z)
+                    /// This is done by comparing the memo names using the getName() method
+                    /// The memoList is sorted in ascending order (A-Z)
+
+                    /// 🌟 Compares each memo's name using the getName() method and sorts them in alphabetical order
                     memoList.sort(Comparator.comparing(memo::getName)); // Sort Alphabetically by name (Title/Subject)
                 }
                 break;
@@ -171,18 +200,21 @@ public class memoListActivity extends AppCompatActivity {
                 break;
         }
 
-        /// Notify the adapter that the data has changed to refresh the view
+        /// Notify the adapter that the data has changed to refresh the view to show the new sorted list of memos
         memoAdapter.notifyDataSetChanged();
     }
     private int getPriorityValue(String priority) {
+        /// 🌟This method helps convert a string priority (like "High") into a number(int) value (like 3 for "High").
+        /// 🌟It’s used to make the priority sorting work.
+
         switch (priority) {
-            case "High":
+            case "High": //If the priority is "High," it returns 3, which represents high priority.
                 return 3;
-            case "Medium":
+            case "Medium": //If the priority is "Medium," it returns 2, which represents medium priority.
                 return 2;
-            case "Low":
+            case "Low": //If the priority is "Low," it returns 1, which represents low priority.
                 return 1;
-            default:
+            default: // If the priority is not any of the options above, it returns 0 as a default value.
                 return 0; // Default value for unknown priorities
         }
     }
