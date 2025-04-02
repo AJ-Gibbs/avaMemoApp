@@ -167,18 +167,18 @@ public class memoListActivity extends AppCompatActivity {
                     /// memo::getDate is a method reference to the getDate method of the memo class.
                     ///***C.c --> creates a comparator that sorts the memo objects by date (based on the date filed)***
 
-                    /// Its literally just ceating a comparator that dorts the memo based off of the date
+                    /// Its literally just creating a comparator that sorts the memo based off of the date
                     memoList.sort(Comparator.comparing(memo::getDate));
             break;
 
             case 1:                             /// Sort by title (name/subject)
-                memoList.sort(Comparator.comparing(memo::getName));
+                memoList.sort(Comparator.comparing(memo::getPriority));
             break;
 
             case 2: /// Sort by priority first THEN sorts by name (just in case we have multiple of the same priorities)
                     ///Sorts it by the specified priority that we created down below
-                    memoList.sort(Comparator.comparingInt((memo m) -> sortByPriorityToInt(m.getPriority())).thenComparing(memo::getName));
-                    //memoList.sort(Comparator.comparing(memo::getPriority).thenComparing(memo::getName));
+                    //memoList.sort(Comparator.comparingInt((memo m) -> sortByPriorityToInt(m.getPriority())).thenComparing(memo::getPriority));
+                    memoList.sort(Comparator.comparing(memo::getPriority).thenComparing(memo::getName));
             break;
         }
             // Log the sorted list for debugging
@@ -203,8 +203,8 @@ public class memoListActivity extends AppCompatActivity {
             case "all":
                 return 3; // This is the "All" option
             default:
-                //gets the lowest int value for the "All" option --> makes it appear first
-                return Integer.MIN_VALUE; // Default...blah..blah..options or even --> unknown priorities
+                //gets the highest int value for the "All" option --> makes it appear first
+                return Integer.MAX_VALUE; // Default...blah..blah..options or even --> unknown priorities
 
         }
     }
