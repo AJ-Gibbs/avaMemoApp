@@ -44,7 +44,6 @@ public class MemoAdapter extends RecyclerView.Adapter<MemoAdapter.MemoViewHolder
     ///Here we create the ViewHolder class
     /// This class is responsible for holding the views for each item in the RecyclerView
     /// Create new views (invoked by the layout manager)
-    ///
     /// Creates and returns a ViewHolder for each item**
     ///  Inflates (BOOOOM 💥) the layout for each memo item.
     @NonNull

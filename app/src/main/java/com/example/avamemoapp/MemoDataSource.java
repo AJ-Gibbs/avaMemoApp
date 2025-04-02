@@ -107,21 +107,21 @@ public class MemoDataSource {
     }
 
 
-    public memo getSpecificMemo(int memoID){
-        memo m = new memo();
-        String query = "SELECT * FROM memo WHERE _id = " + memoID;
-        Cursor cursor = database.rawQuery(query, null);
-        if (cursor.moveToFirst()) {
-            m.setMemoID(cursor.getInt(0));
-            m.setName(cursor.getString(1));
-            m.setText(cursor.getString(2));
-            m.setPriority(cursor.getString(3));
-            m.getDate().setTimeInMillis(Long.parseLong(cursor.getString(4)));
+    public memo getSpecificMemo(int memoID){ //This method retrieves a specific memo from the database using its ID
+        memo m = new memo(); //create a new memo object to store the retrieved data
+        String query = "SELECT * FROM memo WHERE _id = " + memoID; // create a query to select the memo with the given ID
+        Cursor cursor = database.rawQuery(query, null); //
+        if (cursor.moveToFirst()) { // check if the cursor is not empty
+            m.setMemoID(cursor.getInt(0)); // get the memo ID from the cursor
+            m.setName(cursor.getString(1)); // get the memo name from the cursor
+            m.setText(cursor.getString(2)); // get the memo text from the cursor
+            m.setPriority(cursor.getString(3)); // get the memo priority from the cursor
+            m.getDate().setTimeInMillis(Long.parseLong(cursor.getString(4))); // get the memo date from the cursor
 
-            cursor.close();
+            cursor.close(); // close the cursor to free up resources
         }
 
-        return m;
+        return m; // return the memo object with the retrieved data
     }
     public boolean deleteMemo(int memoId) { //This is the method that will delete a memo from the database
         boolean didDelete = false; //create a boolean variable to store the result of the deletion
