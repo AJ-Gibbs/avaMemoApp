@@ -81,7 +81,7 @@ public class memoListActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this)); /// Arrange items in a vertical list
         memoAdapter = new MemoAdapter(memoList, this); /// Attach adapter to handle memo data --> creates a new MemoAdapter that takes the memoList
 
-        //for the memo click listener - AJ
+        ///For the memo click listener - AJ
         memoAdapter.setOnItemClickListener(memoClickListener); /// Set the click listener for the adapter (item clicks)
         recyclerView.setAdapter(memoAdapter); /// Set adapter for RecyclerView
 

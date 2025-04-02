@@ -114,29 +114,28 @@ public class MemoAdapter extends RecyclerView.Adapter<MemoAdapter.MemoViewHolder
     /// It holds the views for the memo title, description, date, and priority indicator
     /// It also holds the edit and delete buttons
     ///
-    public class MemoViewHolder extends RecyclerView.ViewHolder {//subclass of RecyclerView.ViewHolder
-        public View deleteButton; //delete button
-        TextView memoTitle, memoText, memoDate; // text fields for memo title, description, and date
-        View priorityIndicator; // priority indicator (color bar)
+    public class MemoViewHolder extends RecyclerView.ViewHolder { ///subclass of RecyclerView.ViewHolder
+        public View deleteButton; ///delete button
+        TextView memoTitle, memoText, memoDate; /// text fields for memo title, description, and date
+        View priorityIndicator; /// priority indicator (color bar)
 
-        public MemoViewHolder(@NonNull View itemView) {//constructor for the ContactViewHolder class --> runs when a new list item is created
-            super(itemView);//calls the constructor of the parent class RecyclerView.ViewHolder
+        public MemoViewHolder(@NonNull View itemView) { ///constructor for the ContactViewHolder class --> runs when a new list item is created
+            super(itemView); ///calls the constructor of the parent class RecyclerView.ViewHolder
 
-            //These down below find the text fields and button from the item's layout file
+            ///These down below find the text fields and button from the item's layout file
             memoTitle = itemView.findViewById(R.id.memoTitle);
             memoText = itemView.findViewById(R.id.memoDescription);
             memoDate = itemView.findViewById(R.id.memoDate);
             priorityIndicator = itemView.findViewById(R.id.priorityIndicator);
             deleteButton = itemView.findViewById(R.id.buttonDeleteMemo);
 
-            //TAGS
-            itemView.setTag(this); //sets the tag of the view (so that we can identify which item was clicked)
-            itemView.setOnClickListener(memoClickListener);//sets the onClickListener for the view --> this allows us to detect when someone clicks a memo.
+            ///TAGS
+            itemView.setTag(this); ///sets the tag of the view (so that we can identify which item was clicked)
+            itemView.setOnClickListener(memoClickListener);///sets the onClickListener for the view --> this allows us to detect when someone clicks a memo.
 
         }
 
     }
-
 
     /// 5
     /// Here is where we have the click listener that opens up the memo we selected to edit it
