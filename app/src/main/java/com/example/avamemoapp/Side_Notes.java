@@ -17,7 +17,7 @@ Memo.java:
 MemoListActivity:
     - 🌟  An activity that displays a list of memos.
     - It may include features like searching, filtering, and sorting memos.
-    - It can also handle user interactions like adding, editing, or deleting memos.
+    - 🌟 It can also handle user interactions like adding, editing, or deleting memos.
 
 MemoSettingsActivity:
     - 🌟 An activity that allows users to configure settings related to memos.

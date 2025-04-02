@@ -18,10 +18,9 @@ import java.util.List;
 import java.util.Locale;
 
 
-/// //This is the adapter class for the memo list activity
-///This class is responsible for binding the data to the RecyclerView
-///
-/// **MemoAdapter - Adapter class for RecyclerView in memoListActivity**
+/// This is the adapter class for the memo list activity
+/// 🌟This class is responsible for binding the data to the RecyclerView
+/// 🌟 **MemoAdapter - Adapter class for RecyclerView in memoListActivity**
 /// - Binds memo data to RecyclerView.
 /// - Handles memo item layout and priority indicators.
 public class MemoAdapter extends RecyclerView.Adapter<MemoAdapter.MemoViewHolder> {
@@ -32,9 +31,8 @@ public class MemoAdapter extends RecyclerView.Adapter<MemoAdapter.MemoViewHolder
 
     /// 1
     ///Constructor for the MemoAdapter class
-    /// The constructor of the MemoAdapter class.
-    /// It initializes the memoList (the list of memos to display)
-    /// and the Context (which is the parent activity context).
+    /// It initializes the memoList (the list of memos to display) and the Context (which is the parent activity context --> helps it interact with the app's resources).
+    /// 🌟The memoList holds the data that will be displayed in the UI (like a list of items in a RecyclerView)
     public MemoAdapter(List<memo> memoList, Context Context) {
         this.Context = Context;
         this.memoList = memoList;

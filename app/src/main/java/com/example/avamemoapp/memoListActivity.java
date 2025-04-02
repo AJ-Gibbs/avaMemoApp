@@ -58,9 +58,8 @@ public class memoListActivity extends AppCompatActivity {
 
 
     /// 1
-    /// The onCreate method is called when the activity is first created.
-    /// - Sets up the layout.
-    /// - Loads memos from the database (INITIALIZER..OR WHATEVER 🫥)
+    /// The onCreate method is called when the activity is first created --> Sets up the layout.
+    /// 🌟 Loads memos from the database (INITIALIZER..OR WHATEVER 🫥)
     /// - Configures RecyclerView and buttons.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -174,13 +173,14 @@ public class memoListActivity extends AppCompatActivity {
 
                     /// Sorts the memo based on the priority AND compares each memo priority using the getPriority() method in the memo class
                     /// Sorts the memo based on the priority (High > Medium > Low) using a custom method to get the priority value
-                    /// This is done by comparing the priority values using the getPriorityValue() method
+                    /// 🌟 This is done by comparing the priority values using the getPriorityValue() method
                     /// This method is defined below and returns an integer value for each priority level
                     /// The memoList is sorted in descending order (High > Medium > Low)
 
                     /// 🌟 Compares the memo priorities using the getPriority() method and converts them to
                     /// 🌟 integer values so that we can sort them from highest to lowest
 
+                    /// 🌟 This code is comparing the priority values of the two memo objects (memo1 and memo2) based on their priority strings, and sorting them in a specific order.
                     memoList.sort((memo1, memo2) -> Integer.compare(getPriorityValue(memo2.getPriority()), getPriorityValue(memo1.getPriority())));
                 }
                 break;

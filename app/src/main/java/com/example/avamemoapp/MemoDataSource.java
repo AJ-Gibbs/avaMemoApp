@@ -64,7 +64,7 @@ public class MemoDataSource {
     //come back and add getMemoName and all the code that comes after
     // Retrieve all memos from the database
     public List<memo> getAllMemos() {
-        //This creates an empty list where all retrieved memos will be stored.
+        ///This creates an empty list where all retrieved memos will be stored.
         List<memo> memos = new ArrayList<>();
         /// Query the database to retrieve all memos
         /// The query method returns a Cursor object that contains the results of the query.
