@@ -24,6 +24,7 @@ Drew: MemoSettingsActivity
 - filter memos
 - shared preferences
 -sort memos
+-MemoDataSource
 
 Val: MemoListActivity, MemoAdapter,
 - RecyclerView
