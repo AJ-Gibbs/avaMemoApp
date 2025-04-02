@@ -57,14 +57,14 @@ public class MemoAdapter extends RecyclerView.Adapter<MemoAdapter.MemoViewHolder
     /// 3
     /// Here we bind the data to the ViewHolder
     /// Sets memo title, description, and formatted date
-    /// This method is responsible for binding the data to the RecyclerView
+    /// 🌟 This method is responsible for binding the data to the RecyclerView
     /// Also sets/updates the priority colors
     @Override
     public void onBindViewHolder(@NonNull MemoViewHolder holder, int position) {
         memo memo = memoList.get(position);
-        if (memo != null) {
-            holder.memoTitle.setText(memo.getName());
-            holder.memoText.setText(memo.getMText());
+        if (memo != null) { /// Check if memo is not null
+            holder.memoTitle.setText(memo.getName()); /// Set the memo title
+            holder.memoText.setText(memo.getMText()); /// Set the memo description
 
             /// Convert Calendar to formatted date string
             SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault());

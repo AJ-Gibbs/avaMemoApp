@@ -85,7 +85,6 @@ public class memoListActivity extends AppCompatActivity {
         memoAdapter.setOnItemClickListener(memoClickListener); /// Set the click listener for the adapter (item clicks)
         recyclerView.setAdapter(memoAdapter); /// Set adapter for RecyclerView
 
-        /// Call the method here to go back to the main activity
         /// Invesiti...I meant Initialize the buttons 😭
         initAddMemo();   // Button to add a new memo
         initNext2Button(); // Button to navigate to settings page
@@ -94,25 +93,26 @@ public class memoListActivity extends AppCompatActivity {
 
         ///  1.A
         /// THE SPINNER!!!!!!!!!!!!!!!!!!!!!!!!!!
-        /// ***This is the spinner for sorting the memos ---> sorting options***
-        /// Initializing the Spinner
+        /// 🌟 ***This is the spinner for sorting the memos ---> sorting options*** it is initializing the Spinner
         Spinner sortBySpinner = findViewById(R.id.sortBySpinner);
 
         /// We stored the sorting options in the string.xml to make it easier to modify
-        /// Using an ArrayAdapter Helps bind the sorting options TO THE SPINNER EFFICIENTLY
+        /// 🌟 Using an ArrayAdapter Helps bind the sorting options TO THE SPINNER EFFICIENTLY
         /// ArrayAdapter.createFromResource(...): This method fetches an array resource (R.array.sort_options) and converts it into an ArrayAdapter
-        /// ***Creates an adapter to bind the sorting options defined in the string.xml file to the spinner***
+        /// 🌟 ***Creates an adapter to bind the sorting options defined in the string.xml file to the spinner***
+        /// 🌟 CharSequence represents a sequence of characters (like a string) that can be used in the spinner
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.sort_options, android.R.layout.simple_spinner_item);
 
-        /// ****Set the layout for the dropdown items (how they essentially will look like)***
+        /// 🌟 ****Set the layout for the dropdown items (how they essentially will look like)***
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        /// ***Sets (assigns) the adapter to the spinner --> so that the sorting options are displayed when the user interacts with the spinner.***
+
+        /// 🌟 ***Sets (assigns) the adapter to the spinner --> so that the sorting options are displayed when the user interacts with the spinner.***
         sortBySpinner.setAdapter(adapter);
 
         /// 1.B
         /// This is the listener for when the user selects an item from the spinner
-        /// ***When the user selects an item from the spinner, it sorts the memos based on the selected option***
+        /// 🌟 ***When the user selects an item from the spinner, it sorts the memos based on the selected option***
         sortBySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             /// The parent is the spinner itself) --> (actual item selected)  --> based on the position of the item in the spinner --> unique ID but we don't really use it (as far as rn...)
@@ -142,12 +142,14 @@ public class memoListActivity extends AppCompatActivity {
     }
 
     /// 1.C
-    /// Method to sort memos based on the selected option from the spinner (that the user selected)
+    /// 🌟Method to sort memos based on the selected option from the spinner (that the user selected)
     private void sortMemos() {
         /// Gets a reference to the spinner from the layout
         Spinner sortBySpinner = findViewById(R.id.sortBySpinner);
+
         /// 🌟 Grabs the CURRENT selection (what the user picked) from the spinner and then returns it as a string so we can use it later (DOWN THE LINE)
         String selectedOption = sortBySpinner.getSelectedItem().toString(); // Get the selected option from the spinner
+
         ///This is just for debugging purposes ----> to makes sure the selected option is being logged correctly
         Log.d("MemoListActivity", "Selected sorting option: " + selectedOption); // Log the selected option for debugging
 
@@ -160,7 +162,7 @@ public class memoListActivity extends AppCompatActivity {
                     /// 🌟 Sorts the memo based on the date AND compares each memo date using the getDate() method in the memo class
                     /// Sort Date from earliest/oldest to newest/most recent
 
-                    /// 🌟 Why use Comparator? Because it allows us to compare objects (OUR MEMOS) in a custom way,
+                    /// 🌟 Why use COMPARATOR??? Because it allows us to compare objects (OUR MEMOS) in a customizable way,
                     /// 🌟 We're basically telling java the specific way we want our memos to be sorted
                     memoList.sort(Comparator.comparing(memo::getDate));
                 }
@@ -184,7 +186,7 @@ public class memoListActivity extends AppCompatActivity {
                 break;
 
             case "Subject":
-                /// Sort by Subject (Title) A-Z
+                /// 🌟 Sort by Subject (Title) A-Z
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
 
                     /// Sorts the memo based on the name AND compares each memo name using the getName() method in the memo class
@@ -221,8 +223,7 @@ public class memoListActivity extends AppCompatActivity {
 
     /// 2
     /// initAddMemo() - Handles "Add Memo" button click.
-    /// When clicked, it navigates back to the MainActivity.
-    /// //This takes us back to the main activity
+    /// When clicked, it navigates back to the MainActivity where we enter the memo details.
     private void initAddMemo() {
         Button button = findViewById(R.id.buttonAddMemo);
         button.setOnClickListener(new View.OnClickListener() {
@@ -239,7 +240,6 @@ public class memoListActivity extends AppCompatActivity {
 
     /// 3
     /// This button navigates the user to a MemoSettingsActivity.
-    /// This takes us to the MEMO settings page... Is aiden a thing? I said what I said!
     private void initNext2Button() {
         Button button = findViewById(R.id.buttonNext2);
         button.setOnClickListener(new View.OnClickListener() {
@@ -255,15 +255,14 @@ public class memoListActivity extends AppCompatActivity {
 
     /// 4
     ///This is for the Swiper-to-delete functionality
-    /// This section will be used to implement swipe-to-delete functionality for memos.
     /// More like a button to delete it just like we did in our contacts list
-    ///If the switch is turned on, enables delete mode.
-    /// Initializes delete switch for enabling/disabling delete mode
+    /// 🌟 If the switch is turned on, enables delete mode.
+    /// 🌟 Initializes delete switch for enabling/disabling delete mode
     private void initDeleteSwitch() {
         Switch deleteSwitch = findViewById(R.id.switchDelete);
         deleteSwitch.setOnCheckedChangeListener((compoundButton, isChecked) -> {
-            memoAdapter.setDelete(isChecked); // Update delete mode in adapter
-            memoAdapter.notifyDataSetChanged(); // Notify adapter to refresh the view
+            memoAdapter.setDelete(isChecked); /// Update delete mode in adapter
+            memoAdapter.notifyDataSetChanged(); /// Notify adapter to refresh the view
         });
     }
 

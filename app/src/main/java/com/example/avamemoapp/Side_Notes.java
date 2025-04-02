@@ -15,7 +15,7 @@ Memo.java:
     - It may include methods for data manipulation and formatting.
 
 MemoListActivity:
-    - An activity that displays a list of memos.
+    - 🌟  An activity that displays a list of memos.
     - It may include features like searching, filtering, and sorting memos.
     - It can also handle user interactions like adding, editing, or deleting memos.
 
@@ -25,8 +25,8 @@ MemoSettingsActivity:
     - It can also handle user preferences and save them for future use.
 
  MemoAdapter:
-    - An adapter class that binds memo data to a RecyclerView.
-    - It handles the layout and display of each memo item.
+    - 🌟  An adapter class that binds memo data to a RecyclerView.
+    - 🌟  It handles the layout and display of each memo item.
     - It may include features like click listeners for user interactions.
 
 MemoDataSource:
