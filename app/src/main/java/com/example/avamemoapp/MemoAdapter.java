@@ -145,7 +145,7 @@ public class MemoAdapter extends RecyclerView.Adapter<MemoAdapter.MemoViewHolder
     /// Here we get the number of items in the list
     /// This method is responsible for getting the number of items in the list
     /// It returns the size of the memoList
-    ///
+
     @Override
     public int getItemCount() {//gets the size of the list of memo (of the database)
         return memoList.size();

@@ -10,6 +10,8 @@
     Instead of typing it directly in different places, we store it here so we  can use it wherever we need.
     For example, in the app settings or on the home screen.
     -->
+
+
     <string name="app_name">Ava Memo App</string>
     <string-array name="priority_options">
         <item>All</item>

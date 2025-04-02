@@ -163,6 +163,7 @@ public class memoListActivity extends AppCompatActivity {
 
                     /// 🌟 Why use COMPARATOR??? Because it allows us to compare objects (OUR MEMOS) in a customizable way,
                     /// 🌟 We're basically telling java the specific way we want our memos to be sorted
+                    /// 🌟 The :: operator is essentially referencing a method by its name.
                     memoList.sort(Comparator.comparing(memo::getDate));
                 }
                 break; // just stops here and doesn't check the other cases
@@ -236,7 +237,6 @@ public class memoListActivity extends AppCompatActivity {
             }
         });
     }
-
 
     /// 3
     /// This button navigates the user to a MemoSettingsActivity.

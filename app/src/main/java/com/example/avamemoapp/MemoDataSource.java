@@ -64,9 +64,9 @@ public class MemoDataSource {
     //come back and add getMemoName and all the code that comes after
     // Retrieve all memos from the database
     public List<memo> getAllMemos() {
-        ///This creates an empty list where all retrieved memos will be stored.
+        /// 🌟 This creates an empty list where all retrieved memos will be stored.
         List<memo> memos = new ArrayList<>();
-        /// Query the database to retrieve all memos
+        /// 🌟 Query the database to retrieve all memos
         /// The query method returns a Cursor object that contains the results of the query.
         /// The Cursor object is used to iterate through the results.
         /// The query() function asks the database for all records from the memo table.
@@ -78,16 +78,16 @@ public class MemoDataSource {
         if (cursor != null && cursor.moveToFirst()) {
 
             /// Loop through the cursor and create memo objects for each record
-            /// This runs through all the memos in the database one by one.
+            /// 🌟 This runs through all the memos in the database one by one.
             do {
-                /// This creates a new memo to store data retrieved from the database.
+                /// T🌟his creates a new memo to store data retrieved from the database.
                 memo m = new memo();
                 m.setMemoID(cursor.getInt(0));  // Get memo ID (1st column) UNO (MHHH BUT IT'S ACTUALLY zeeee-rooooo
                 m.setName(cursor.getString(1));  // Get memo title (2nd column) DOS
                 m.setText(cursor.getString(2));  // Get memo description (3rd column) TRES
                 m.setPriority(cursor.getString(3));  // Get priority (4th column) CUATRO!!!!!!!!
 
-                /// Get the date from the database and convert it to a Calendar object 🔢➡️🗓️
+                /// 🌟Get the date from the database and convert it to a Calendar object 🔢➡️🗓️
                 /// The date is stored as a String, so we convert it into a number using Long.parseLong().
                 /// setTimeInMillis() updates the Calendar object to match the stored date.
                 Calendar date = Calendar.getInstance();
@@ -96,13 +96,13 @@ public class MemoDataSource {
                 /// This ensures the database connection is properly closed.
                 memos.add(m);
 
-                /// This loop keeps running as long as there are more memos in the database.
+                /// 🌟This loop keeps running as long as there are more memos in the database.
                 /// Once we reach the last memo, the loop ends.
             } while (cursor.moveToNext());
-            ///After we’re done reading all memos, we must close it so the app doesn't freaking crash on us...🫤
+            /// 🌟 After we’re done reading all memos, we must close it so the app doesn't freaking crash on us...🫤
             cursor.close();
         }
-        /// The method returns a list of all stored memos. I waNT TO SEE THE MEMOS! 😭
+        /// 🌟 The method returns a list of all stored memos. I waNT TO SEE THE MEMOS! 😭
         return memos;
     }
 
