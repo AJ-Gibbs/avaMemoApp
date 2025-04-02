@@ -42,7 +42,6 @@ public class memoListActivity extends AppCompatActivity {
     MemoAdapter memoAdapter;   // Adapter to bind data to RecyclerView
     List<memo> memoList;       // List to store memos from database
 
-
     /// A listener for when an item on the list is clicked and navigates to the main activity with the data populated
     private View.OnClickListener memoClickListener = new View.OnClickListener() {
         @Override

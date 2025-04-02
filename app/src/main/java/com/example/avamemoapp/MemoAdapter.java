@@ -60,6 +60,8 @@ public class MemoAdapter extends RecyclerView.Adapter<MemoAdapter.MemoViewHolder
     public void onBindViewHolder(@NonNull MemoViewHolder holder, int position) {
         memo memo = memoList.get(position);
         if (memo != null) { /// Check if memo is not null
+        /// holder is the ViewHolder that holds the views for each item in the RecyclerView
+        /// holder --> is an instance -->
             holder.memoTitle.setText(memo.getName()); /// Set the memo title
             holder.memoText.setText(memo.getMText()); /// Set the memo description
 
@@ -187,6 +189,7 @@ public class MemoAdapter extends RecyclerView.Adapter<MemoAdapter.MemoViewHolder
         //controls whether delete functionality is active.
         this.isDeleting = isDeleting; //sets the isDeleting flag to the given value
     }
+
 
 }
 
