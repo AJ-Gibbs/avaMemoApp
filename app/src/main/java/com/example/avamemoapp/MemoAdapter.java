@@ -18,10 +18,9 @@ import java.util.List;
 import java.util.Locale;
 
 
-/// //This is the adapter class for the memo list activity
-///This class is responsible for binding the data to the RecyclerView
-///
-/// **MemoAdapter - Adapter class for RecyclerView in memoListActivity**
+/// This is the adapter class for the memo list activity
+/// 🌟This class is responsible for binding the data to the RecyclerView
+/// 🌟 **MemoAdapter - Adapter class for RecyclerView in memoListActivity**
 /// - Binds memo data to RecyclerView.
 /// - Handles memo item layout and priority indicators.
 public class MemoAdapter extends RecyclerView.Adapter<MemoAdapter.MemoViewHolder> {
@@ -32,9 +31,8 @@ public class MemoAdapter extends RecyclerView.Adapter<MemoAdapter.MemoViewHolder
 
     /// 1
     ///Constructor for the MemoAdapter class
-    /// The constructor of the MemoAdapter class.
-    /// It initializes the memoList (the list of memos to display)
-    /// and the Context (which is the parent activity context).
+    /// It initializes the memoList (the list of memos to display) and the Context (which is the parent activity context --> helps it interact with the app's resources).
+    /// 🌟The memoList holds the data that will be displayed in the UI (like a list of items in a RecyclerView)
     public MemoAdapter(List<memo> memoList, Context Context) {
         this.Context = Context;
         this.memoList = memoList;
@@ -44,7 +42,6 @@ public class MemoAdapter extends RecyclerView.Adapter<MemoAdapter.MemoViewHolder
     ///Here we create the ViewHolder class
     /// This class is responsible for holding the views for each item in the RecyclerView
     /// Create new views (invoked by the layout manager)
-    ///
     /// Creates and returns a ViewHolder for each item**
     ///  Inflates (BOOOOM 💥) the layout for each memo item.
     @NonNull
@@ -57,14 +54,14 @@ public class MemoAdapter extends RecyclerView.Adapter<MemoAdapter.MemoViewHolder
     /// 3
     /// Here we bind the data to the ViewHolder
     /// Sets memo title, description, and formatted date
-    /// This method is responsible for binding the data to the RecyclerView
+    /// 🌟 This method is responsible for binding the data to the RecyclerView
     /// Also sets/updates the priority colors
     @Override
     public void onBindViewHolder(@NonNull MemoViewHolder holder, int position) {
         memo memo = memoList.get(position);
-        if (memo != null) {
-            holder.memoTitle.setText(memo.getName());
-            holder.memoText.setText(memo.getMText());
+        if (memo != null) { /// Check if memo is not null
+            holder.memoTitle.setText(memo.getName()); /// Set the memo title
+            holder.memoText.setText(memo.getMText()); /// Set the memo description
 
             /// Convert Calendar to formatted date string
             SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault());
@@ -114,29 +111,28 @@ public class MemoAdapter extends RecyclerView.Adapter<MemoAdapter.MemoViewHolder
     /// It holds the views for the memo title, description, date, and priority indicator
     /// It also holds the edit and delete buttons
     ///
-    public class MemoViewHolder extends RecyclerView.ViewHolder {//subclass of RecyclerView.ViewHolder
-        public View deleteButton; //delete button
-        TextView memoTitle, memoText, memoDate; // text fields for memo title, description, and date
-        View priorityIndicator; // priority indicator (color bar)
+    public class MemoViewHolder extends RecyclerView.ViewHolder { ///subclass of RecyclerView.ViewHolder
+        public View deleteButton; ///delete button
+        TextView memoTitle, memoText, memoDate; /// text fields for memo title, description, and date
+        View priorityIndicator; /// priority indicator (color bar)
 
-        public MemoViewHolder(@NonNull View itemView) {//constructor for the ContactViewHolder class --> runs when a new list item is created
-            super(itemView);//calls the constructor of the parent class RecyclerView.ViewHolder
+        public MemoViewHolder(@NonNull View itemView) { ///constructor for the ContactViewHolder class --> runs when a new list item is created
+            super(itemView); ///calls the constructor of the parent class RecyclerView.ViewHolder
 
-            //These down below find the text fields and button from the item's layout file
+            ///These down below find the text fields and button from the item's layout file
             memoTitle = itemView.findViewById(R.id.memoTitle);
             memoText = itemView.findViewById(R.id.memoDescription);
             memoDate = itemView.findViewById(R.id.memoDate);
             priorityIndicator = itemView.findViewById(R.id.priorityIndicator);
             deleteButton = itemView.findViewById(R.id.buttonDeleteMemo);
 
-            //TAGS
-            itemView.setTag(this); //sets the tag of the view (so that we can identify which item was clicked)
-            itemView.setOnClickListener(memoClickListener);//sets the onClickListener for the view --> this allows us to detect when someone clicks a memo.
+            ///TAGS
+            itemView.setTag(this); ///sets the tag of the view (so that we can identify which item was clicked)
+            itemView.setOnClickListener(memoClickListener);///sets the onClickListener for the view --> this allows us to detect when someone clicks a memo.
 
         }
 
     }
-
 
     /// 5
     /// Here is where we have the click listener that opens up the memo we selected to edit it
