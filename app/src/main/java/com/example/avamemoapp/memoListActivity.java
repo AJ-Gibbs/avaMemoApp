@@ -96,14 +96,12 @@ public class memoListActivity extends AppCompatActivity {
         ///  1.A
         /// THE SPINNER!!!!!!!!!!!!!!!!!!!!!!!!!!
         /// ***This is the spinner for sorting the memos ---> sorting options***
-        ///Setting up the spinner for sorting memos
         /// Initializing the Spinner
         Spinner sortBySpinner = findViewById(R.id.sortBySpinner);
 
         /// We stored the sorting options in the string.xml to make it easier to modify
         /// Using an ArrayAdapter Helps bind the sorting options TO THE SPINNER EFFICIENTLY
         /// ArrayAdapter.createFromResource(...): This method fetches an array resource (R.array.sort_options) and converts it into an ArrayAdapter
-
         /// ***Creates an adapter to bind the sorting options defined in the string.xml file to the spinner***
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.sort_options, android.R.layout.simple_spinner_item);
@@ -119,12 +117,11 @@ public class memoListActivity extends AppCompatActivity {
         sortBySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             /// The parent is the spinner itself) --> (actual item selected)  --> based on the position of the item in the spinner --> unique ID but we don't really use it (as far as rn...)
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                sortMemos(position); // Call the method to sort memos based on the selected option/changes
+            public void onItemSelected(AdapterView parent, View view, int position, long id) {
+                sortMemos(); // Call the method to sort memos based on the selected option/changes
             }
-
             @Override
-            public void onNothingSelected(android.widget.AdapterView<?> parent) {
+            public void onNothingSelected(AdapterView parent) {
                 // Do nothing if no option is selected
             }
             /*Side Notes:
@@ -147,68 +144,48 @@ public class memoListActivity extends AppCompatActivity {
 
     /// 1.C
     /// Method to sort memos based on the selected option from the spinner
-    /// This method sorts the memos based on the selected option from the spinner
-    /// The sorting options are defined in the string.xml file
-    /// The sorting options are:
-    /// 0 - Sort by date
-    /// 1 - Sort by title (name/subject)
-    /// 2 - Sort by priority
-    private void sortMemos(int position) {
-
-        /// Basically this part with the sorting (and Comparator) would not be able to work if the version of the android device is lower than Nougat (7.0)
-        /// Which unfortunately is the case for some devices (mine included....😑)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-
-            /// Position --> It's the index of the selected item in the spinner that represents what the user chose to sort by...
-            switch (position) {
-                case 0:
-                    /// Sort by date
-                    ///  The literal --> "::" is used to refer to a method in a class.
-                    /// memo::getDate is a method reference to the getDate method of the memo class.
-                    ///***C.c --> creates a comparator that sorts the memo objects by date (based on the date filed)***
-
-                    /// Its literally just creating a comparator that sorts the memo based off of the date
-                    memoList.sort(Comparator.comparing(memo::getDate));
-            break;
-
-            case 1:                             /// Sort by title (name/subject)
-                memoList.sort(Comparator.comparing(memo::getPriority));
-            break;
-
-            case 2: /// Sort by priority first THEN sorts by name (just in case we have multiple of the same priorities)
-                    ///Sorts it by the specified priority that we created down below
-                    //memoList.sort(Comparator.comparingInt((memo m) -> sortByPriorityToInt(m.getPriority())).thenComparing(memo::getPriority));
-                    memoList.sort(Comparator.comparing(memo::getPriority).thenComparing(memo::getName));
-            break;
-        }
-            // Log the sorted list for debugging
-            for (memo m : memoList) {
-                Log.d("Sorted Memo", "Name: " + m.getName() + ", Priority: " + m.getPriority());
-            }
-        memoAdapter.notifyDataSetChanged(); // Notify adapter to refresh the view
-    }
-}
-
-    /// 1.D
     ///Sorting the memo priority high - low
-    /// Basically, this method converts the priority string to an integer for sorting purposes to use above
-    private int sortByPriorityToInt(String color) {
-        switch (color.toLowerCase()){
-            case "high":
-                return 0;
-            case "medium":
-                return 1;
-            case "low":
-                return 2;
-            case "all":
-                return 3; // This is the "All" option
-            default:
-                //gets the highest int value for the "All" option --> makes it appear first
-                return Integer.MAX_VALUE; // Default...blah..blah..options or even --> unknown priorities
+    private void sortMemos() {
+        Spinner sortBySpinner = findViewById(R.id.sortBySpinner);
+        String selectedOption = sortBySpinner.getSelectedItem().toString(); // Get the selected option from the spinner
+        Log.d("MemoListActivity", "Selected sorting option: " + selectedOption); // Log the selected option for debugging
 
+        /// Sort the memoList based on the selected option
+        switch (selectedOption) {
+            case "Date":
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    memoList.sort(Comparator.comparing(memo::getDate)); // Sort by priority in descending order
+                }
+                break;
+            case "Priority":
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    memoList.sort((memo1, memo2) -> Integer.compare(getPriorityValue(memo2.getPriority()), getPriorityValue(memo1.getPriority())));
+                }
+                break;
+            case "Subject":
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    memoList.sort(Comparator.comparing(memo::getName)); // Sort Alphabetically by name (Title/Subject)
+                }
+                break;
+            default:
+                break;
+        }
+
+        /// Notify the adapter that the data has changed to refresh the view
+        memoAdapter.notifyDataSetChanged();
+    }
+    private int getPriorityValue(String priority) {
+        switch (priority) {
+            case "High":
+                return 3;
+            case "Medium":
+                return 2;
+            case "Low":
+                return 1;
+            default:
+                return 0; // Default value for unknown priorities
         }
     }
-
 
     /// 2
     /// initAddMemo() - Handles "Add Memo" button click.

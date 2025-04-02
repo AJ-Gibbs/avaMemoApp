@@ -69,14 +69,15 @@
 
     <ListView
         android:id="@+id/memoListView"
-        android:layout_width="361dp"
-        android:layout_height="193dp"
+        android:layout_width="367dp"
+        android:layout_height="246dp"
         android:background="@drawable/rounded_darker_purple_bg"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.488"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/lineartopper"
-        app:layout_constraintVertical_bias="0.76" />
+        app:layout_constraintVertical_bias="0.844" />
 
     <LinearLayout
         android:id="@+id/linearbot"
