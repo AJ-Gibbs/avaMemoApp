@@ -40,7 +40,7 @@ public class MemoAdapter extends RecyclerView.Adapter<MemoAdapter.MemoViewHolder
 
     /// 2
     ///Here we create the ViewHolder class
-    /// This class is responsible for holding the views for each item in the RecyclerView
+    /// 🌟 This class is responsible for holding the views for each item in the RecyclerView
     /// Create new views (invoked by the layout manager)
     /// Creates and returns a ViewHolder for each item**
     ///  Inflates (BOOOOM 💥) the layout for each memo item.
@@ -58,9 +58,10 @@ public class MemoAdapter extends RecyclerView.Adapter<MemoAdapter.MemoViewHolder
     /// Also sets/updates the priority colors
     @Override
     public void onBindViewHolder(@NonNull MemoViewHolder holder, int position) {
+        /// 🌟 Takes an item from the list memoList at a specific position and stores it in a variable called memo
         memo memo = memoList.get(position);
         if (memo != null) { /// Check if memo is not null
-        /// holder is the ViewHolder that holds the views for each item in the RecyclerView
+        /// 🌟 holder is the ViewHolder that holds the views for each item in the RecyclerView
         /// holder --> is an instance -->
             holder.memoTitle.setText(memo.getName()); /// Set the memo title
             holder.memoText.setText(memo.getMText()); /// Set the memo description
@@ -94,23 +95,29 @@ public class MemoAdapter extends RecyclerView.Adapter<MemoAdapter.MemoViewHolder
         }
 
         /// Handle Delete Mode
+        /// isDeleting is a boolean flag that determines whether delete mode is active.
         if (isDeleting) {
+            /// This makes the delete button visible for the memo item in the RecyclerView.
             holder.deleteButton.setVisibility(View.VISIBLE);
+            /// Set the delete button's click listener
             holder.deleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    /// When the delete button is clicked, it calls the deleteItem method
+                    /// and gets the position of the memo in the list and deletes it from the database and updates the RecyclerView.
                     deleteItem(holder.getAdapterPosition());
                 }
             });
+            /// If isDeleting is false, the delete button remains hidden
         } else {
             holder.deleteButton.setVisibility(View.INVISIBLE);
         }
-    }
+    } //End of BIND
 
     /// 4
     /// Holds view references for each memo item
-    /// This class is responsible for holding the views for each item in the RecyclerView
-    /// It holds the views for the memo title, description, date, and priority indicator
+    /// 🌟 This class is responsible for holding the views for each item in the RecyclerView
+    /// 🌟 It holds the views for the memo title, description, date, and priority indicator
     /// It also holds the edit and delete buttons
     ///
     public class MemoViewHolder extends RecyclerView.ViewHolder { ///subclass of RecyclerView.ViewHolder
@@ -134,10 +141,10 @@ public class MemoAdapter extends RecyclerView.Adapter<MemoAdapter.MemoViewHolder
 
         }
 
-    }
+    }// End of ViewHolder class
 
     /// 5
-    /// Here is where we have the click listener that opens up the memo we selected to edit it
+    /// 🌟 Here is where we have the click listener that opens up the memo we selected to edit it
     public void setOnItemClickListener(View.OnClickListener listener) {
         memoClickListener = listener;
     }
@@ -145,8 +152,8 @@ public class MemoAdapter extends RecyclerView.Adapter<MemoAdapter.MemoViewHolder
 
     /// 6
     /// Here we get the number of items in the list
-    /// This method is responsible for getting the number of items in the list
-    /// It returns the size of the memoList
+    /// 🌟 This method is responsible for getting the number of items in the list
+    /// 🌟 It returns the size of the memoList
 
     @Override
     public int getItemCount() {//gets the size of the list of memo (of the database)
@@ -154,12 +161,12 @@ public class MemoAdapter extends RecyclerView.Adapter<MemoAdapter.MemoViewHolder
     }
 
     /// 7
-    /// This method is used to delete a memo from the list
-    /// It removes the memo from the list and notifies the adapter of the change
+    /// 🌟 This method is used to delete a memo from the list
+    /// 🌟 It removes the memo from the list and notifies the adapter of the change
     private void deleteItem(int position) {// removes a memo from the list when the delete button is clicked
+        /// 🌟 Takes an item from the list memoList at a specific position and stores it in a variable called memo
         memo memo = memoList.get(position); //gets the memo at the given position in the list
         MemoDataSource dbHelper = new MemoDataSource(Context);//creates a new MemoDataSource object --> used to access the database
-
 
         try {//tries to delete the memo
             dbHelper.open();//opens the database
@@ -172,7 +179,7 @@ public class MemoAdapter extends RecyclerView.Adapter<MemoAdapter.MemoViewHolder
                 //Toast.makeText(Context, "Memo Deleted", Toast.LENGTH_SHORT).show();
 
             }
-            else {//if the contact was not deleted
+            else {//if the memo was not deleted
                 Toast.makeText(Context, "Delete Failed!", Toast.LENGTH_SHORT).show();//shows a pop-up message
             }
         }
