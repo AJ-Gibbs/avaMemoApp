@@ -9,6 +9,7 @@ import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -45,6 +46,9 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         initDateButton();
         initSettingsButton();
         currentMemo = new memo();
+
+        //this part of the code is where you check to see if there is an id saved to the extras and if there is you populate the memo object with the memo of the memo id
+        //if there is no id saved to the extras then we create a new memo object
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             initMemo(extras.getInt("memoID"));
@@ -52,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         else {
             currentMemo = new memo();
         }
-
+//        //pre existing code
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -61,7 +65,6 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
     }
 
     //This takes us to the memo list activity
-
     private void initNextButton() {
         Button button = findViewById(R.id.buttonNext);
         button.setOnClickListener(new View.OnClickListener() {
@@ -74,6 +77,8 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
             }
         });
     }
+
+    //This takes us to the settings activity
     private void initSettingsButton() {
         Button button = findViewById(R.id.settingsButton);
         button.setOnClickListener(new View.OnClickListener() {
@@ -91,6 +96,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
     //this method takes the info in the edit texts and saves it to the memo object
     private void initTextChangedEvents(){
+        //this saves
         final EditText etMemoName = findViewById(R.id.titleEditText);
         etMemoName.addTextChangedListener(new TextWatcher() {
             public void afterTextChanged(Editable s) {
@@ -219,6 +225,9 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         etMemoText.setText(currentMemo.getMText());
         // Set the spinner to the current priority
         String currentPriority = currentMemo.getPriority();
+        int spinnerPosition = ((ArrayAdapter<String>) etMemoPriority.getAdapter()).getPosition(currentPriority);
+        etMemoPriority.setSelection(spinnerPosition);
+        dateTextView.setText(DateFormat.format("MM/dd/yyyy", currentMemo.getDate()));
 
 
 
