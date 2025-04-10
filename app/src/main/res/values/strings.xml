@@ -7,7 +7,7 @@
 
 
     This line stores the name of our app ("Ava Memo App").
-    Instead of typing it directly in different places, we store it here so we  can use it wherever we need.
+    Instead of typing it directly in different places, we store it here so we can use it wherever we need.
     For example, in the app settings or on the home screen.
     -->
 

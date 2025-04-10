@@ -23,6 +23,8 @@ import java.util.Locale;
 /// 🌟 **MemoAdapter - Adapter class for RecyclerView in memoListActivity**
 /// - Binds memo data to RecyclerView.
 /// - Handles memo item layout and priority indicators.
+///
+/// Where we bind our memo data to the recycler view --> which is where we display a scrollable list of our memo items
 public class MemoAdapter extends RecyclerView.Adapter<MemoAdapter.MemoViewHolder> {
     private List<memo> memoList; /// List holding all memos that will be displayed in the RecyclerView
     private static View.OnClickListener memoClickListener; /// Listener for memo item click
@@ -47,6 +49,7 @@ public class MemoAdapter extends RecyclerView.Adapter<MemoAdapter.MemoViewHolder
     @NonNull
     @Override
     public MemoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        //🌟 This class is responsible for holding the views for each item in the RecyclerView
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.memo_item, parent, false);
         return new MemoViewHolder(v);
     }
@@ -58,6 +61,7 @@ public class MemoAdapter extends RecyclerView.Adapter<MemoAdapter.MemoViewHolder
     /// Also sets/updates the priority colors
     @Override
     public void onBindViewHolder(@NonNull MemoViewHolder holder, int position) {
+        //🌟 This method is responsible for binding the data to the RecyclerView
         /// 🌟 Takes an item from the list memoList at a specific position and stores it in a variable called memo
         memo memo = memoList.get(position);
         if (memo != null) { /// Check if memo is not null
@@ -116,11 +120,12 @@ public class MemoAdapter extends RecyclerView.Adapter<MemoAdapter.MemoViewHolder
 
     /// 4
     /// Holds view references for each memo item
-    /// 🌟 This class is responsible for holding the views for each item in the RecyclerView
+    /// 🌟 This class is responsible for holding the views for each memo item in the RecyclerView
     /// 🌟 It holds the views for the memo title, description, date, and priority indicator
     /// It also holds the edit and delete buttons
     ///
     public class MemoViewHolder extends RecyclerView.ViewHolder { ///subclass of RecyclerView.ViewHolder
+        // 🌟 This class is responsible for holding the views for each memo item in the RecyclerView
         public View deleteButton; ///delete button
         TextView memoTitle, memoText, memoDate; /// text fields for memo title, description, and date
         View priorityIndicator; /// priority indicator (color bar)
