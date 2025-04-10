@@ -1,3 +1,8 @@
+//        Gets what the user types or selects 118
+//        Filters the memo list based on search and priority 134
+//        Sorts the results by the selected sort option 150
+//        Saves those settings for next time 125
+
 package com.example.avamemoapp;
 
 import android.content.Intent;
@@ -53,23 +58,24 @@ public class MemoSettingsActivity extends AppCompatActivity {
         allMemos = ds.getAllMemos();
         ds.close();
 
-        filteredMemos = new ArrayList<>(allMemos);
+        filteredMemos = new ArrayList<>(allMemos);  //creates a copy of allMemos list and stores it here
 
-        // Load saved filters from SharedPreferences
-        SharedPreferences prefs = getSharedPreferences("MemoPrefs", MODE_PRIVATE);
-        String savedSearch = prefs.getString("searchText", "");
-        String savedPriority = prefs.getString("selectedPriority", "All");
-        int savedSortId = prefs.getInt("selectedSortOptionId", R.id.sortByDate); // Default sort by date
+        // Load saved filters from SharedPreferences way below
+        SharedPreferences prefs = getSharedPreferences("MemoPrefs", MODE_PRIVATE); //restores previous user settings
+        String savedSearch = prefs.getString("searchText", ""); // restores the user’s choices of the search bar
+        String savedPriority = prefs.getString("selectedPriority", "All"); // restores the user’s choices of the priority dropdown
+        int savedSortId = prefs.getInt("selectedSortOptionId", R.id.sortByDate); // restores the user’s choices for the sort option radio buttons or Defaults to sort by date
 
         // Set previously saved search text
         searchBar.setText(savedSearch);
 
-        // Set previously selected priority filter
+        //Restores previously selected item in priority filter dropdown (Spinner)
+        // an adapter acts as a bridge between your data (like a list of priorities or memos) and a UI component (like a Spinner or ListView)
         ArrayAdapter adapter = (ArrayAdapter) priorityFilter.getAdapter();
         if (adapter != null) {
-            int position = adapter.getPosition(savedPriority);
+            int position = adapter.getPosition(savedPriority); //finds the index
             if (position >= 0) {
-                priorityFilter.setSelection(position);
+                priorityFilter.setSelection(position);  //If it found a valid index (not -1), then it sets that option as the current selection in the Spinner
             }
         }
 
@@ -90,10 +96,12 @@ public class MemoSettingsActivity extends AppCompatActivity {
             @Override public void onTextChanged(CharSequence s, int start, int before, int count) {}
         });
 
-        // Update list when a new priority is selected
+        // This code listens for when the user selects an item from your Spinner (called priorityFilter)
+        // like "High", "Medium", "Low", or "All" — and updates the memo list when that happens.
         priorityFilter.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView parent, View view, int position, long id) {
+                //view is what was selected in the Spinner (the actual dropdown item that the user clicked on).
                 updateList();
             }
 
@@ -103,34 +111,41 @@ public class MemoSettingsActivity extends AppCompatActivity {
 
     // This method filters, sorts, and updates the memo list
     private void updateList() {
+        // this is where I get the search text the user types in the search bar
         String searchText = searchBar.getText().toString().toLowerCase();
         String selectedPriority = priorityFilter.getSelectedItem().toString();
+        //check which radio button the user selected
         int selectedSortId = sortOptions.getCheckedRadioButtonId();
 
         // Save current search, filter, and sort options to SharedPreferences
         SharedPreferences prefs = getSharedPreferences("MemoPrefs", MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
-        editor.putString("searchText", searchBar.getText().toString());
-        editor.putString("selectedPriority", selectedPriority);
-        editor.putInt("selectedSortOptionId", selectedSortId);
-        editor.apply();
+        editor.putString("searchText", searchBar.getText().toString()); //Whatever the user typed in the search bar
+        editor.putString("selectedPriority", selectedPriority);  //The dropdown value they picked (e.g., "High")
+        editor.putInt("selectedSortOptionId", selectedSortId); // Which radio button they selected (sort option)
+        editor.apply(); //This writes everything to memory
 
         // Clear and rebuild the filtered list
+        //this is where I filter the memo list based on search and priority
         filteredMemos.clear();
-        for (memo m : allMemos) {
+        for (memo m : allMemos) {  //allMemos = Everything from your memo database (no filters)
+            //Checks if the memo’s title or description contains the user's search word.
             boolean matchesSearch = m.getName().toLowerCase().contains(searchText)
                     || m.getMText().toLowerCase().contains(searchText);
+            //If user picked "All", include everything
+            //Otherwise, only include memos that match the selected priority ("High", "Low", etc.)
             boolean matchesPriority = selectedPriority.equals("All")
                     || m.getPriority().equalsIgnoreCase(selectedPriority);
-
+            //Adds that matching memo to the filtered list
             if (matchesSearch && matchesPriority) {
-                filteredMemos.add(m);
+                filteredMemos.add(m);  //filteredMemos = Only what the user wants to see
             }
         }
 
         // Sort the filtered memos based on selected option
         if (selectedSortId == R.id.sortByPriority) {
             // Sort by High > Medium > Low using custom value by comparing the numeric values of their priority
+            //negative means m1 comes before m2, positive means m2 comes before m1, and 0 means they are the same
             filteredMemos.sort((m1, m2) ->
                     getPriorityValue(m1.getPriority()) - getPriorityValue(m2.getPriority()));
         } else if (selectedSortId == R.id.sortBySubject) {
@@ -155,11 +170,15 @@ public class MemoSettingsActivity extends AppCompatActivity {
 
             String info = title + "\n" + description + "\n" + priority + " - " + date;
             displayList.add(info);
+            //displayList is a temporary list of Strings that holds the formatted text you want to show in your ListView
+            //It’s built from your filtered memos — and it's what the user actually sees on the screen.
         }
 
         // Connects the filtered and sorted memo data to the ListView, so it can actually be shown on screen
+        // an adapter acts as a bridge between your data (like a list of priorities or memos) and a UI component (like a Spinner or ListView)
         memoListAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, displayList);
         memoListView.setAdapter(memoListAdapter);
+        // call this to put the data into the ListView and show it on screen
     }
 
     // Converts priority text to a number for custom sorting
