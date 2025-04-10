@@ -10,6 +10,9 @@ This is the memoListActivity class. This class is responsible for the memo list 
 5) Create a method to initialize the next button
 6) Handling the Sorting --> add a listener to the spinner and sorting list
 
+
+Displays the list of memos and can also handle user interactions like adding, editing, or deleting memos.
+
  */
 import android.content.Intent;
 import android.os.Build;
@@ -46,11 +49,17 @@ public class memoListActivity extends AppCompatActivity {
     private View.OnClickListener memoClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
+            //Gets the ViewHolder from the clicked view
             RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) view.getTag();
+            //Gets the position of the memo item in the adapter
             int position = viewHolder.getAdapterPosition();
+            //Gets the ID of the memo at that position
             int memoID = memoList.get(position).getMemoID();
+            //Creates an Intent to open the MainActivity
             Intent intent = new Intent(memoListActivity.this, MainActivity.class);
+            //Pass the memo ID along with the Intent
             intent.putExtra("memoID", memoID);
+            //Start the MainActivity
             startActivity(intent);
         }
     };
@@ -62,6 +71,7 @@ public class memoListActivity extends AppCompatActivity {
     /// - Configures RecyclerView and buttons.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //Calls the onCreate method of the parent class
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_memo_list);
@@ -99,6 +109,10 @@ public class memoListActivity extends AppCompatActivity {
         /// ArrayAdapter.createFromResource(...): This method fetches an array resource (R.array.sort_options) and converts it into an ArrayAdapter
         /// 🌟 ***Creates an adapter to bind the sorting options defined in the string.xml file to the spinner***
         /// 🌟 CharSequence represents a sequence of characters (like a string) that can be used in the spinner
+
+        //Helps to bind the sorting options to the spinner and CharSequence where we have a sequence of characters; like a string
+        //Connects the string data from the XML resource (R.array.sort_options) to the Spinner
+        //Holds a set of String values that will be displayed in the Spinner
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.sort_options, android.R.layout.simple_spinner_item);
 
@@ -164,6 +178,7 @@ public class memoListActivity extends AppCompatActivity {
                     /// 🌟 We're basically telling java the specific way we want our memos to be sorted
                     /// 🌟 The :: operator is essentially referencing a method by its name. --> It’s a shorthand way of saying "use this method to compare the objects" (lambda function)
                     memoList.sort(Comparator.comparing(memo::getDate));
+                    //The '::' Compares memos based on the value returned from the getDate() method
                 }
                 break; // just stops here and doesn't check the other cases
 
@@ -181,7 +196,9 @@ public class memoListActivity extends AppCompatActivity {
                     /// 🌟 integer values so that we can sort them from highest to lowest
 
                     /// 🌟 This code is comparing the priority values of the two memo objects (memo1 and memo2) based on their priority strings, and sorting them in a specific order.
+
                     memoList.sort((memo1, memo2) -> Integer.compare(getPriorityValue(memo2.getPriority()), getPriorityValue(memo1.getPriority())));
+                    //Converting priority strings into numbers and then Comparing those numbers to then sort them
                 }
                 break;
 
@@ -196,6 +213,7 @@ public class memoListActivity extends AppCompatActivity {
 
                     /// 🌟 Compares each memo's name using the getName() method and sorts them in alphabetical order
                     memoList.sort(Comparator.comparing(memo::getName)); // Sort Alphabetically by name (Title/Subject)
+                    //Compare memos based on the value returned from the getName() method
                 }
                 break;
             default:
@@ -258,10 +276,14 @@ public class memoListActivity extends AppCompatActivity {
     /// 🌟 If the switch is turned on, enables delete mode.
     /// 🌟 Initializes delete switch for enabling/disabling delete mode
     private void initDeleteSwitch() {
+        //Gets/finds the reference to the switch in our layout
         Switch deleteSwitch = findViewById(R.id.switchDelete);
+        //Sets a listener that responds when the switch is turned on/off
         deleteSwitch.setOnCheckedChangeListener((compoundButton, isChecked) -> {
             /// in Memo Adapter
+            // Tell our adapter to update delete mode (it should be active) go check
             memoAdapter.setDelete(isChecked); /// Update delete mode in adapter
+            //Updates and refreshes the recyclerview and shows the changes we made
             memoAdapter.notifyDataSetChanged(); /// Notify adapter to refresh the view
         });
     }
