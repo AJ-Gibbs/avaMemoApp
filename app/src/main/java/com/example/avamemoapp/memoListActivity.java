@@ -158,11 +158,11 @@ public class memoListActivity extends AppCompatActivity {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
 
                     /// 🌟 Sorts the memo based on the date AND compares each memo date using the getDate() method in the memo class
-                    /// Sort Date from earliest/oldest to newest/most recent
+                    /// Sort Date from earliest/oldest to most recent date
 
-                    /// 🌟 Why use COMPARATOR??? Because it allows us to compare objects (OUR MEMOS) in a customizable way,
+                    /// 🌟 Why use COMPARATOR??? Because it allows us to compare objects (OUR MEMOS) in a customizable way, (based on the value returned by the memo.getDate())
                     /// 🌟 We're basically telling java the specific way we want our memos to be sorted
-                    /// 🌟 The :: operator is essentially referencing a method by its name.
+                    /// 🌟 The :: operator is essentially referencing a method by its name. --> It’s a shorthand way of saying "use this method to compare the objects" (lambda function)
                     memoList.sort(Comparator.comparing(memo::getDate));
                 }
                 break; // just stops here and doesn't check the other cases
@@ -171,7 +171,7 @@ public class memoListActivity extends AppCompatActivity {
                 /// Sort by High > Medium > Low
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
 
-                    /// Sorts the memo based on the priority AND compares each memo priority using the getPriority() method in the memo class
+                    /// 🌟Sorts the memo based on the priority AND compares each memo priority using the getPriority() method in the memo class
                     /// Sorts the memo based on the priority (High > Medium > Low) using a custom method to get the priority value
                     /// 🌟 This is done by comparing the priority values using the getPriorityValue() method
                     /// This method is defined below and returns an integer value for each priority level
@@ -260,6 +260,7 @@ public class memoListActivity extends AppCompatActivity {
     private void initDeleteSwitch() {
         Switch deleteSwitch = findViewById(R.id.switchDelete);
         deleteSwitch.setOnCheckedChangeListener((compoundButton, isChecked) -> {
+            /// in Memo Adapter
             memoAdapter.setDelete(isChecked); /// Update delete mode in adapter
             memoAdapter.notifyDataSetChanged(); /// Notify adapter to refresh the view
         });
